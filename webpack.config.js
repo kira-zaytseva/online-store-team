@@ -1,30 +1,34 @@
 const path = require('path');
 const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 
 const baseConfig = {
     mode: 'development',
-    entry: path.resolve(__dirname, './src/index'),
+    entry: ['@babel/polyfill', './src/index.ts'],
     output: {
         filename: 'index.js',
-        path: path.resolve(__dirname, './dist'),
-        assetModuleFilename: 'assets/[hash][ext]',
+        path: path.resolve(__dirname, 'dist'),
+        clean: true,
+        assetModuleFilename: 'assets/[name][ext]',
     },
     module: {
         rules: [
             {
-                test: /\.css$/i,
-                use: ['style-loader', 'css-loader'],
+                test: /\.html$/,
+                loader: 'html-loader',
             },
             {
-                test: /\.ts$/i,
-                use: 'ts-loader',
+                test: /\.ts$/,
                 exclude: /node_modules/,
+                loader: 'babel-loader',
             },
             {
                 test: /\.(jpe?g|png|webp|gif|svg)$/,
+                type: 'asset/resource',
+            },
+            {
+                test: /\.(ttf|woff|woff2|eot)$/,
                 type: 'asset/resource',
             },
         ],
@@ -36,7 +40,6 @@ const baseConfig = {
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, 'src', 'index.html'),
         }),
-        new CleanWebpackPlugin(),
         new ESLintPlugin({ extensions: 'ts' }),
     ],
 };

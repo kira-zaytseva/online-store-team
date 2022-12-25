@@ -21,7 +21,7 @@ const baseConfig = {
             {
                 test: /\.ts$/,
                 exclude: /node_modules/,
-                loader: 'ts-loader',
+                loader: 'babel-loader',
             },
             {
                 test: /\.(jpe?g|png|webp|gif|svg)$/,

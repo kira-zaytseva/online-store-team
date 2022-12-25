@@ -1,5 +1,5 @@
+import { routes } from '../../enums';
 import Component from '../../types/component';
-import { routes } from '../../pages/app';
 
 const Buttons = [
     {

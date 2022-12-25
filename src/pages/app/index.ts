@@ -4,12 +4,7 @@ import SettingsPage from '../settings';
 import StatisticsPage from '../statistics';
 import ErrorPage, { ErrorTypes } from '../error';
 import Header from '../../components/header';
-
-export const enum routes {
-    MainPage = 'main-page',
-    SettingsPage = 'settings-page',
-    StatisticsPage = 'statistics-page',
-}
+import { routes } from '../../enums';
 
 class App {
     private static container: HTMLElement = document.body;

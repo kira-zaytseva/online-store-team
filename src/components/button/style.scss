@@ -1,0 +1,16 @@
+
+.button {
+    height: auto;
+    width: auto;
+    padding: 0.5rem 2.375rem;
+    background-color: #FFC107;
+    font-size: 1.25rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 1.875rem;
+    transition: .5s;
+}
+
+.button:hover {
+    background-color: #8B8B8B;
+}

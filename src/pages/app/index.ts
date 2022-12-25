@@ -5,6 +5,7 @@ import StatisticsPage from '../statistics';
 import ErrorPage, { ErrorTypes } from '../error';
 import Header from '../../components/header';
 import { routes } from '../../enums';
+import { createButton } from '../../components/button';
 
 class App {
     private static container: HTMLElement = document.body;
@@ -47,7 +48,10 @@ class App {
     }
 
     run() {
-        App.container.append(this.header.render());
+        App.container.append(
+            this.header.render(),
+            createButton({ classNames: 'small-button small-button-red', buttonText: 'Buy' })
+        );
         App.renderNewPage('main-page');
         this.enableRouteChange();
     }

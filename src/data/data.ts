@@ -1,4 +1,4 @@
-const dogs = [{
+export const dogs = [{
     id: 1,
     title: 'Puppy food',
     description: 'Meets the high energy needs of small breed dogs during a puppy’s short, intense growth period. Exclusive small kibble size designed for little dogs with small jaws and picky appetites. Provides immune support with an exclusive blend of antioxidants and vitamins.',

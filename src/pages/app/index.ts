@@ -6,6 +6,7 @@ import ErrorPage, { ErrorTypes } from '../error';
 import Header from '../../components/header';
 import { routes } from '../../enums';
 import { createButton } from '../../components/button';
+import { createQuantity } from '../../components/quantity/quantity';
 
 class App {
     private static container: HTMLElement = document.body;
@@ -50,7 +51,8 @@ class App {
     run() {
         App.container.append(
             this.header.render(),
-            createButton({ classNames: 'small-button small-button-red', buttonText: 'Buy' })
+            createButton({ classNames: 'small-button small-button-red', buttonText: 'Buy' }),
+            createQuantity({ max: 5, setValue: (value) => console.log(value), value: 2 })
         );
         App.renderNewPage('main-page');
         this.enableRouteChange();

@@ -7,29 +7,49 @@ const Buttons = [
         text: 'Main Page',
     },
     {
-        id: routes.SettingsPage,
-        text: 'Settings Page',
+        id: routes.CatalogPage,
+        text: 'Catalog Page',
     },
     {
-        id: routes.StatisticsPage,
-        text: 'Statistics Page',
+        id: routes.CartPage,
+        text: 'Cart Page',
     },
 ];
 
 class Header extends Component {
+    headerContainer: HTMLDivElement;
     constructor(tagName: string, className: string) {
         super(tagName, className);
+        this.headerContainer = document.createElement('div');
+        this.headerContainer.className = 'header__container container';
+        this.container.append(this.headerContainer);
     }
 
     renderPageButtons() {
-        const pageButtons = document.createElement('div');
+        const leftColumn = document.createElement('div');
+        const rightColumn = document.createElement('div');
+        leftColumn.className = 'column';
+        rightColumn.className = 'column';
+        // const pageButtons = document.createElement('div');
+        const htmlButtons: (string | Node)[] = [];
         Buttons.forEach((button) => {
             const buttonHTML = document.createElement('a');
             buttonHTML.href = `#${button.id}`;
             buttonHTML.innerText = button.text;
-            pageButtons.append(buttonHTML);
+            htmlButtons.push(buttonHTML);
         });
-        this.container.append(pageButtons);
+        const phoneNumber = document.createElement('div');
+        const phoneNumberIcon = document.createElement('img');
+
+        phoneNumber.append(phoneNumberIcon, '111111');
+
+        const workingTime = document.createElement('p');
+        workingTime.textContent = '9:00 - 21:00';
+
+        leftColumn.append(htmlButtons[0], htmlButtons[1]);
+        rightColumn.append(phoneNumber, workingTime, htmlButtons[2]);
+
+        this.headerContainer.append(leftColumn, rightColumn);
     }
 
     render() {

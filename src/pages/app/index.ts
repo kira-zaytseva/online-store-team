@@ -1,7 +1,7 @@
 import Page from '../../types/page';
 import MainPage from '../main';
-import SettingsPage from '../settings';
-import StatisticsPage from '../statistics';
+import CatalogPage from '../settings';
+import CartPage from '../statistics';
 import ErrorPage, { ErrorTypes } from '../error';
 import Header from '../../components/header';
 import { routes } from '../../enums';
@@ -22,10 +22,10 @@ class App {
 
         if (idPage === routes.MainPage) {
             page = new MainPage(idPage);
-        } else if (idPage === routes.SettingsPage) {
-            page = new SettingsPage(idPage);
-        } else if (idPage === routes.StatisticsPage) {
-            page = new StatisticsPage(idPage);
+        } else if (idPage === routes.CatalogPage) {
+            page = new CatalogPage(idPage);
+        } else if (idPage === routes.CartPage) {
+            page = new CartPage(idPage);
         } else {
             page = new ErrorPage(idPage, ErrorTypes.NotFound);
         }
@@ -59,6 +59,6 @@ class App {
     }
 }
 
-// Main, Settings, Statistics
+// Main, Catalog, Cart
 
 export default App;

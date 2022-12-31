@@ -1,8 +1,8 @@
 import Page from '../../types/page';
 
-class StatisticsPage extends Page {
+class CartPage extends Page {
     static TextObject = {
-        MainTitle: 'StatisticsPage',
+        MainTitle: 'Cart Page',
     };
 
     constructor(id: string) {
@@ -10,10 +10,10 @@ class StatisticsPage extends Page {
     }
 
     render() {
-        const title = this.createHeaderTitle(StatisticsPage.TextObject.MainTitle);
+        const title = this.createHeaderTitle(CartPage.TextObject.MainTitle);
         this.container.append(title);
         return this.container;
     }
 }
 
-export default StatisticsPage;
+export default CartPage;

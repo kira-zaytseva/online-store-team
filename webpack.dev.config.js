@@ -10,6 +10,7 @@ module.exports = {
         },
         open: true,
         hot: true,
+        historyApiFallback: true,
     },
     module: {
         rules: [

@@ -1,3 +1,5 @@
+import { routes } from '../enums';
+
 export const dogs = [
     {
         id: 1,
@@ -399,5 +401,23 @@ export const dogs = [
         images: ['https://i.imgur.com/K7vnCcg.jpg', 'https://i.imgur.com/z0PlzAX.jpg'],
         category: 'Toys',
         stock: 17,
+    },
+];
+
+export const navCards = [
+    {
+        title: 'dogs',
+        image: 'https://i.imgur.com/lp87sKW.png',
+        link: `#${routes.CatalogPage}?pet=dogs`,
+    },
+    {
+        title: 'cats',
+        image: 'https://i.imgur.com/aL0NOhH.png',
+        link: `#${routes.CatalogPage}?pet=cats`,
+    },
+    {
+        title: 'fish',
+        image: 'https://i.imgur.com/AvcxmFX.png',
+        link: `#${routes.CatalogPage}?pet=fish`,
     },
 ];

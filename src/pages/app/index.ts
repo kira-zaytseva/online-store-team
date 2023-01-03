@@ -27,7 +27,7 @@ class App {
             page = new CatalogPage(idPage);
         } else if (idPage === routes.CartPage) {
             page = new CartPage(idPage);
-        } else if (idPage === routes.ProductPage) {
+        } else if (idPage.includes(routes.ProductPage)) {
             page = new ProductPage(idPage);
         } else {
             page = new ErrorPage(idPage, ErrorTypes.NotFound);

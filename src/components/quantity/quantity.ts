@@ -1,7 +1,7 @@
-//import { dogs } from '../../data/data';
+import { QuantityInterface } from './types';
 
-export const createQuantity = ({ max, value, setValue }) => {
-    let currentValue = value || 0;
+export const createQuantity = ({ max, value, setValue }: QuantityInterface): HTMLFieldSetElement => {
+    let currentValue: number = value || 0;
     const fieldsetQuantity = document.createElement('fieldset');
     fieldsetQuantity.className = 'fieldset';
     const legendQuantity = document.createElement('legend');
@@ -29,25 +29,18 @@ export const createQuantity = ({ max, value, setValue }) => {
         currentValue -= 1;
         setInputValue();
     });
+
     buttonIncrease.addEventListener('click', () => {
         currentValue += 1;
         setInputValue();
     });
 
-    function setInputValue() {
+    function setInputValue(): void {
         setValue(currentValue);
         quantityInput.value = String(currentValue);
         currentValue === 0 ? (buttonDecrease.disabled = true) : (buttonDecrease.disabled = false);
         currentValue >= max ? (buttonIncrease.disabled = true) : (buttonIncrease.disabled = false);
     }
-
-    // function decrease() {
-    //     this.value -= 1;
-    // }
-
-    // function increase() {
-    //     this.value += 1;
-    // }
 
     return fieldsetQuantity;
 };

@@ -7,6 +7,9 @@ import Header from '../../components/header';
 import { routes } from '../../enums';
 import { createButton } from '../../components/button';
 import { createQuantity } from '../../components/quantity/quantity';
+import { createAccordeon } from '../../components/accordeon/accordeon';
+import { dogs } from '../../data/data';
+import { AccordeonObject } from '../../components/accordeon/types';
 
 class App {
     private static container: HTMLElement = document.body;
@@ -52,7 +55,8 @@ class App {
         App.container.append(
             this.header.render(),
             createButton({ classNames: 'small-button small-button-red', buttonText: 'Buy' }),
-            createQuantity({ max: 5, setValue: (value) => console.log(value), value: 2 })
+            createQuantity({ max: 5, setValue: (value) => console.log(value), value: 2 }),
+            createAccordeon(dogs[0].information as Array<AccordeonObject>)
         );
         App.renderNewPage('main-page');
         this.enableRouteChange();

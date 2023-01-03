@@ -1,10 +1,15 @@
 import Page from '../../types/page';
 import MainPage from '../main';
-import SettingsPage from '../settings';
-import StatisticsPage from '../statistics';
+import CatalogPage from '../settings';
+import CartPage from '../statistics';
 import ErrorPage, { ErrorTypes } from '../error';
 import Header from '../../components/header';
 import { routes } from '../../enums';
+import { createButton } from '../../components/button';
+import { createQuantity } from '../../components/quantity/quantity';
+import { createAccordeon } from '../../components/accordeon/accordeon';
+import { dogs } from '../../data/data';
+import { AccordeonObject } from '../../components/accordeon/types';
 
 class App {
     private static container: HTMLElement = document.body;
@@ -20,10 +25,10 @@ class App {
 
         if (idPage === routes.MainPage) {
             page = new MainPage(idPage);
-        } else if (idPage === routes.SettingsPage) {
-            page = new SettingsPage(idPage);
-        } else if (idPage === routes.StatisticsPage) {
-            page = new StatisticsPage(idPage);
+        } else if (idPage === routes.CatalogPage) {
+            page = new CatalogPage(idPage);
+        } else if (idPage === routes.CartPage) {
+            page = new CartPage(idPage);
         } else {
             page = new ErrorPage(idPage, ErrorTypes.NotFound);
         }
@@ -47,12 +52,17 @@ class App {
     }
 
     run() {
-        App.container.append(this.header.render());
+        App.container.append(
+            this.header.render(),
+            createButton({ classNames: 'small-button small-button-red', buttonText: 'Buy' }),
+            createQuantity({ max: 5, setValue: (value) => console.log(value), value: 2 }),
+            createAccordeon(dogs[0].information as Array<AccordeonObject>)
+        );
         App.renderNewPage('main-page');
         this.enableRouteChange();
     }
 }
 
-// Main, Settings, Statistics
+// Main, Catalog, Cart
 
 export default App;

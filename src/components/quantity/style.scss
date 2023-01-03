@@ -1,0 +1,67 @@
+.fieldset {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.75rem 0 0 0;
+    margin: 0 0 1.55rem 0;
+    border: 0 none;
+}
+
+.legend {
+    padding: 0;
+}
+
+.quantity {
+    display: flex;
+    margin-bottom: 1.25rem;
+    height: 2.5rem;
+}
+
+.quantity__input {
+    width: 2.5rem;
+    padding: 0.1rem;
+    border: none;
+    border-top: 0.0625rem solid var(--border-color);
+    border-bottom: 0.0625rem solid var(--border-color);
+    font-family: 'Avenir Next Rounded Std';
+    font-size: 1.125rem;
+    text-align: center;
+}
+
+.quantity__input::-webkit-inner-spin-button {
+    display: none;
+}
+
+.quantity__btn {
+    position: relative;
+    width: 2.5rem;
+    border: 0.0625rem solid var(--border-color);
+    font-size: 1.125rem;
+    text-align: center;
+    color: var(--secondary);
+    background-color: var(--background);
+}
+
+.quantity__btn:disabled {
+    opacity: .5;
+}
+
+.quantity__btn:hover:not(:disabled) {
+    border: 0.065rem solid var(--secondary);
+}
+
+.quantity__btn::before,
+.quantity__btn::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -0.0625rem;
+    margin-left: -0.3125rem;
+    width: 0.625rem;
+    border: 0.0325rem solid var(--secondary);
+}
+
+.quantity__btn--increase::after {
+    transform: rotate(90deg);
+}

@@ -1,0 +1,43 @@
+.product-section {
+    padding: 15px 30px;
+}
+
+.product-card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20%;
+    margin-bottom: 50px;
+}
+
+.product-image {
+    width: 320px;
+    height: 320px;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.product-page-title {
+    font-size: 24px;
+    margin-bottom: 0;
+}
+
+.price {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.product-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.faq {
+    display: flex;
+    justify-content: center;
+}

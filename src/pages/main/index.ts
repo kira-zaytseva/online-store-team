@@ -1,6 +1,6 @@
 import Page from '../../types/page';
 import { createNavCard } from '../../components/navCard';
-import { navCards as mainpageCards } from '../../data/data';
+import { pets } from '../../data/data';
 
 class MainPage extends Page {
     constructor(id: string) {
@@ -28,7 +28,7 @@ class MainPage extends Page {
         const navCards = document.createElement('div');
         navCards.className = 'mainpage-cards';
         mainSection.appendChild(title);
-        mainpageCards.forEach(({ title, image, link }) => {
+        pets.forEach(({ title, image, link }) => {
             navCards.appendChild(
                 createNavCard({
                     cardImageLink: image,

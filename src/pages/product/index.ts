@@ -4,6 +4,7 @@ import { createQuantity } from '../../components/quantity/quantity';
 import { createAccordeon } from '../../components/accordeon/accordeon';
 import { dogs } from '../../data/data';
 import { AccordeonObject } from '../../components/accordeon/types';
+import { createBreadcrumbs } from '../../components/breadcrumbs/index';
 
 class ProductPage extends Page {
     constructor(id: string) {
@@ -11,7 +12,7 @@ class ProductPage extends Page {
     }
 
     createProductPage(): HTMLElement {
-        const productSection = document.createElement('section');
+        const productSection = document.createElement('article');
         productSection.className = 'product-section';
         const productCard = document.createElement('section');
         productCard.className = 'product-card';
@@ -35,6 +36,7 @@ class ProductPage extends Page {
         const faq = document.createElement('section');
         faq.className = 'faq';
 
+        productSection.appendChild(createBreadcrumbs({ name: dogs[0].title, pet: 'dogs', category: dogs[0].category }));
         productSection.appendChild(productCard);
         productCard.appendChild(productImage);
         productCard.appendChild(productInfo);

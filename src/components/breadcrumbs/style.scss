@@ -1,0 +1,28 @@
+.breadcrumbs {
+    margin: 10px 0 40px 20px;
+}
+
+.breadcrumbs-list {
+    display: flex;
+    gap: 0.625rem;
+    font-size: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.breadcrumbs-separator {
+    width: 0.0625rem;
+    background-color: var(--border-color);
+    border-radius: 20%;
+    transform: rotate(30deg);
+}
+
+.breadcrumbs-link:hover:not(.breadcrumbs-item--disable) {
+    color: var(--element-hover);
+    text-decoration: underline;
+}
+
+.breadcrumbs-item--disable {
+    color: lightgray;
+}

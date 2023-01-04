@@ -38,7 +38,7 @@
     font-size: 1.125rem;
     text-align: center;
     color: var(--secondary);
-    background-color: var(--element-background);
+    background-color: transparent;
 }
 
 .quantity__btn:disabled {
@@ -46,8 +46,7 @@
 }
 
 .quantity__btn:hover:not(:disabled) {
-    border: 0.065rem solid var(--secondary);
-    background-color: var(--element-hover);
+    background-color: var(--element-background);
 }
 
 .quantity__btn::before,

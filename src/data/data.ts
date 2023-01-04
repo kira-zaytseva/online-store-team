@@ -767,7 +767,7 @@ export const dogs = [
     },
 ];
 
-export const navCards = [
+export const pets = [
     {
         title: 'dogs',
         image: 'https://i.imgur.com/lp87sKW.png',

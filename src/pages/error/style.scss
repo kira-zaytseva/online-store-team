@@ -1,0 +1,42 @@
+.error-section {
+    position: relative;
+    height: 80vh;
+    padding: 60px 60px;
+    overflow: hidden;
+}
+
+.error-title {
+    font-size: 48px;
+    text-align: center;
+}
+
+.error-text {
+    font-size: 32px;
+}
+
+.pets-list {
+    padding: 0;
+    list-style: none;
+}
+
+.list-item {
+    margin: 25px 0;
+}
+
+.pets-link {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--element-background);
+}
+
+.pets-link:hover {
+    color: var(--element-hover);
+}
+
+.error-dog-bg {
+    width: 1000px;
+    height: 550px;
+    position: absolute;
+    bottom: 0;
+    right: -100px;
+}

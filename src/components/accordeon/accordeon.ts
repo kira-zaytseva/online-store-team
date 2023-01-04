@@ -1,11 +1,10 @@
-import { AccordeonObject, AnimationInterface } from './types';
+import { AccordeonObject, AnimationInterface, AnimationConfig } from './types';
 
-const animation__config = {
+const animation__config: AnimationConfig = {
     duration: 700,
     easing: 'ease-in-out',
     iterations: 1,
     fill: 'forwards',
-    direction: '',
 };
 
 const EXPANDED = 'expanded';
@@ -40,6 +39,7 @@ export function createAccordeon(information: Array<AccordeonObject>): HTMLDivEle
             button: null,
             state: initialState,
             animation: null,
+            content: null,
             init(el) {
                 this.button = el;
                 this.button.addEventListener('click', this.toggle.bind(this));
@@ -67,16 +67,16 @@ export function createAccordeon(information: Array<AccordeonObject>): HTMLDivEle
             expand() {
                 this.state = ANIMATED;
                 this.animateContent(true, EXPANDED);
-                this.button.classList.add('expand');
-                this.button.classList.remove('collapse');
-                this.button.setAttribute('aria-expanded', 'true');
+                this.button?.classList.add('expand');
+                this.button?.classList.remove('collapse');
+                this.button?.setAttribute('aria-expanded', 'true');
             },
             collapse() {
                 this.state = ANIMATED;
                 this.animateContent(false, COLLAPSED);
-                this.button.classList.add('collapse');
-                this.button.classList.remove('expand');
-                this.button.setAttribute('aria-expanded', 'false');
+                this.button?.classList.add('collapse');
+                this.button?.classList.remove('expand');
+                this.button?.setAttribute('aria-expanded', 'false');
             },
 
             animateContent(isReversed, endState) {
@@ -87,17 +87,18 @@ export function createAccordeon(information: Array<AccordeonObject>): HTMLDivEle
                     this.animation.cancel();
                 }
 
-                this.animation = this.content.animate({ height: [`${this.content.scrollHeight}px`, '0px'] }, config);
+                this.animation =
+                    this.content?.animate({ height: [`${this.content.scrollHeight}px`, '0px'] }, config) || null;
 
-                this.animation.addEventListener('finish', () => {
+                this.animation?.addEventListener('finish', () => {
                     this.animation = null;
                     this.state = endState;
 
                     if (endState === EXPANDED) {
-                        this.content.setAttribute('aria-hidden', 'false');
+                        this.content?.setAttribute('aria-hidden', 'false');
                     }
                     if (endState === COLLAPSED) {
-                        this.content.setAttribute('aria-hidden', 'true');
+                        this.content?.setAttribute('aria-hidden', 'true');
                     }
                 });
             },

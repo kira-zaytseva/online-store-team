@@ -1,15 +1,11 @@
 import Page from '../../types/page';
 import MainPage from '../main';
 import CatalogPage from '../settings';
+import ProductPage from '../product';
 import CartPage from '../statistics';
 import ErrorPage, { ErrorTypes } from '../error';
 import Header from '../../components/header';
 import { routes } from '../../enums';
-import { createButton } from '../../components/button';
-import { createQuantity } from '../../components/quantity/quantity';
-import { createAccordeon } from '../../components/accordeon/accordeon';
-import { dogs } from '../../data/data';
-import { AccordeonObject } from '../../components/accordeon/types';
 
 class App {
     private static container: HTMLElement = document.body;
@@ -18,17 +14,21 @@ class App {
 
     static renderNewPage(idPage: string) {
         const currentPageHTML = document.querySelector(`#${App.defaultPageId}`);
+
         if (currentPageHTML) {
             currentPageHTML.remove();
         }
+
         let page: Page | null = null;
 
         if (idPage === routes.MainPage) {
             page = new MainPage(idPage);
-        } else if (idPage === routes.CatalogPage) {
+        } else if (idPage.includes(routes.CatalogPage)) {
             page = new CatalogPage(idPage);
         } else if (idPage === routes.CartPage) {
             page = new CartPage(idPage);
+        } else if (idPage.includes(routes.ProductPage)) {
+            page = new ProductPage(idPage);
         } else {
             page = new ErrorPage(idPage, ErrorTypes.NotFound);
         }
@@ -52,12 +52,7 @@ class App {
     }
 
     run() {
-        App.container.append(
-            this.header.render(),
-            createButton({ classNames: 'small-button small-button-red', buttonText: 'Buy' }),
-            createQuantity({ max: 5, setValue: (value) => console.log(value), value: 2 }),
-            createAccordeon(dogs[0].information as Array<AccordeonObject>)
-        );
+        App.container.append(this.header.render());
         App.renderNewPage('main-page');
         this.enableRouteChange();
     }

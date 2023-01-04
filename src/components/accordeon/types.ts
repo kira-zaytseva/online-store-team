@@ -5,6 +5,7 @@ export type AccordeonObject = {
 };
 
 export interface AnimationInterface {
+    content: null | HTMLElement;
     button: null | HTMLButtonElement;
     state: string;
     animation: null | Animation;
@@ -13,4 +14,12 @@ export interface AnimationInterface {
     expand: () => void;
     collapse: () => void;
     animateContent: (isReversed: boolean, endState: string) => void;
+}
+
+export interface AnimationConfig {
+    duration: number;
+    direction?: PlaybackDirection;
+    easing: string;
+    iterations: number;
+    fill: FillMode;
 }

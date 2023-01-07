@@ -10,9 +10,25 @@ a {
     color: #000;
     text-decoration: none;
 }
+.phone-link {
+    display: flex;
+    align-items: center;
+}
+.selected-items {
+    font-weight: 700;
+    color: #000;
+}
+.main-page-logo {
+    width: 60px;
+    border-radius: 50px;
+}
 .column {
-    width: 350px;
+    width: 500px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+.flex {
+    display: flex;
+    flex-direction: column;
 }

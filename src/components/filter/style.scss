@@ -1,0 +1,10 @@
+.filter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 270px;
+    height: auto;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 30px;
+}

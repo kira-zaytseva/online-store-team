@@ -1,24 +1,26 @@
 // import { pets } from '../../data/data';
 import { BreadcrumbsInterface } from './types';
 
-export const createBreadcrumbs = ({ name, category, pet }: BreadcrumbsInterface): HTMLElement => {
+export const createBreadcrumbs = ({ name, category, pet, page }: BreadcrumbsInterface): HTMLElement => {
     const breadcrumbsArr = [
         {
             title: 'Main',
             link: '/',
         },
     ];
+    const link = `/#${page}`;
+
     if (pet) {
         breadcrumbsArr.push({
             title: pet,
-            link: '/',
+            link: `${link}?pet=${pet}`,
         });
     }
 
     if (category) {
         breadcrumbsArr.push({
             title: category,
-            link: '/',
+            link: `${link}?pet=${pet}&category=${category}`,
         });
     }
 

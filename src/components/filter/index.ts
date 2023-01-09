@@ -27,7 +27,7 @@ export const createFilter = (filterData: FilterInterface): HTMLFormElement => {
         Object.keys(currentFilterData).forEach((key) => params.set(key, currentFilterData[key]?.join(',')));
 
         const query = params.toString();
-        window.location.href = `/#${routes.CatalogPage}?${query}`;
+        window.location.href = `${window.location.pathname}#${routes.CatalogPage}?${query}`;
     };
 
     const preparedCategory = Array.from(categorySet).map((category) => ({

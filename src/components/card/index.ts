@@ -7,7 +7,7 @@ export const createCard = ({ title, image, price, pet, id }: CardInterface): HTM
     const cartStore = CartStore;
 
     const changeLocation = () => {
-        window.location.href = `/#${routes.ProductPage}?pet=${pet}&id=${id}`;
+        window.location.href = `${window.location.pathname}#${routes.ProductPage}?pet=${pet}&id=${id}`;
     };
 
     const addToCart = (e: MouseEvent) => {

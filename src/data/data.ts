@@ -844,6 +844,61 @@ export const data: PetsInterface[] = [
         stock: 5,
         brand: 'Sheba',
     },
+    {
+        id: 28,
+        title: 'Tetra Guppy Colour Mini Flakes',
+        information: [
+            {
+                id: 1,
+                question: 'Description',
+                answer:
+                    'A complete food with incredibly nutritious properties and natural colour enhancement for everyday feeding of guppies and other livebearer carps. The mini flakes provide a rich, vibrant colouration.',
+            },
+            {
+                id: 2,
+                question: 'Country',
+                answer: 'Germany',
+            },
+            {
+                id: 3,
+                question: 'Brand',
+                answer: 'Tetra',
+            },
+        ],
+        price: 5,
+        images: ['https://i.imgur.com/XeOE3A6.jpg'],
+        pet: 'fish',
+        category: 'Food',
+        stock: 3,
+        brand: 'Tetra',
+    },
+    {
+        id: 29,
+        title: 'Tetra ReptoDelica Grasshopper',
+        information: [
+            {
+                id: 1,
+                question: 'Description',
+                answer: 'Extra food for turtles.',
+            },
+            {
+                id: 2,
+                question: 'Country',
+                answer: 'Germany',
+            },
+            {
+                id: 3,
+                question: 'Brand',
+                answer: 'Tetra',
+            },
+        ],
+        price: 9,
+        images: ['https://i.imgur.com/pyOM2iy.jpg', 'https://i.imgur.com/shCTIjt.jpg'],
+        pet: 'fish',
+        category: 'Food',
+        stock: 2,
+        brand: 'Tetra',
+    },
 ];
 
 export const pets = [

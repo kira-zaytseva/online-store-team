@@ -81,11 +81,15 @@ class CartPage extends Page {
         cartSum.appendChild(paymentInfo);
         paymentInfo.appendChild(paymentText);
         paymentInfo.appendChild(paymentAmount);
-        cartSum.appendChild(
-            createButton({ buttonText: 'Buy now', onClick: () => this.container.appendChild(createModal()) })
-        );
+        cartSum.appendChild(createButton({ buttonText: 'Buy now', onClick: createModal }));
         const updateCartStats = () => {
             const currentOrderProducts = CartStore.get();
+            if (!currentOrderProducts.length) {
+                cartSection.style.display = 'none';
+                cartTitle.innerText = 'Cart is Empty. Go to Catalog';
+                return;
+            }
+
             const currentTotalPrice = currentOrderProducts.reduce((acc, rec) => acc + rec.amount * rec.price, 0);
             cartTitle.innerText = `Cart ${CartStore.getQuantity()} items`;
             totalPrice.innerText = `${currentTotalPrice}$`;
@@ -115,7 +119,7 @@ class CartPage extends Page {
             itemTitle.innerText = title;
             const itemStock = document.createElement('span');
             itemStock.className = 'item-stock';
-            itemStock.innerText = `${stock ? 'In stock' : 'Not available'}`;
+            itemStock.innerText = `In stock: ${stock - amount}`;
             const rightColumn = document.createElement('div');
             rightColumn.className = 'right-column';
             const deleteItemImg = document.createElement('img');
@@ -133,6 +137,10 @@ class CartPage extends Page {
             const setValue = (value: number, status: string) => {
                 switch (status) {
                     case quantityStatus.DECREASE: {
+                        const currentOrder = CartStore.getById(id);
+                        if (currentOrder && currentOrder.amount === 1) {
+                            cartItem.remove();
+                        }
                         CartStore.decrease(id);
                         break;
                     }
@@ -154,6 +162,7 @@ class CartPage extends Page {
                 if (currentOrder) {
                     const { amount, price } = currentOrder;
                     itemPrice.innerText = `${amount * price}$`;
+                    itemStock.innerText = `In stock: ${stock - amount}`;
                 }
             };
 

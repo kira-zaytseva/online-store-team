@@ -18,8 +18,8 @@ export const createFilter = (filterData: FilterInterface): HTMLFormElement => {
     filterForm.className = 'filter-form';
     const store = new ActiveFilterStore(filterData);
 
-    const onSubmit = (e: SubmitEvent) => {
-        e.preventDefault();
+    const onSubmit = (e?: SubmitEvent) => {
+        e?.preventDefault();
         const currentFilterData = store.get();
         const params = new URLSearchParams();
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -29,6 +29,21 @@ export const createFilter = (filterData: FilterInterface): HTMLFormElement => {
         const query = params.toString();
         window.location.href = `${window.location.pathname}#${routes.CatalogPage}?${query}`;
     };
+
+    const removeAllFilters = () => {
+        store.removeAll();
+        onSubmit();
+    };
+
+    const copyLink = () => {
+        navigator.clipboard.writeText(window.location.href);
+        copyLinkBtn.innerText = 'Copied';
+        setTimeout(() => {
+            copyLinkBtn.innerText = 'Copy link';
+        }, 1000);
+    };
+
+    const copyLinkBtn = createButton({ buttonText: 'Copy link', type: 'button', onClick: copyLink });
 
     const preparedCategory = Array.from(categorySet).map((category) => ({
         isActive: Boolean(filterData && filterData?.category && filterData.category.includes(category)),
@@ -62,5 +77,7 @@ export const createFilter = (filterData: FilterInterface): HTMLFormElement => {
         createDualSlider({ title: 'Stock', sliderMax: Math.max(...stockArr), sliderMin: Math.min(...stockArr) })
     );
     filterForm.appendChild(createButton({ buttonText: 'Search', type: 'submit' }));
+    filterForm.appendChild(createButton({ buttonText: 'Reset', type: 'button', onClick: removeAllFilters }));
+    filterForm.appendChild(copyLinkBtn);
     return filterForm;
 };

@@ -1,6 +1,6 @@
 import { createButton } from '../../components/button';
 
-export const createModal = (): HTMLElement => {
+export const createModal = () => {
     const modalWindow = document.createElement('div');
     modalWindow.className = 'modal-window';
     const modalBg = document.createElement('div');
@@ -234,7 +234,8 @@ export const createModal = (): HTMLElement => {
     cvc.appendChild(cvcInput);
     modalForm.appendChild(catOnBtn);
     modalForm.appendChild(createButton({ buttonText: 'Pay', type: 'submit', classNames: 'modal-btn' }));
-    return modalWindow;
+    document.body.appendChild(modalWindow);
+    // return modalWindow;
 };
 
 function validateName(name: string) {

@@ -1,3 +1,6 @@
+import { data } from '../data/data';
+import { PetsInterface } from '../data/types';
+import { events } from 'enums';
 import { FilterInterface } from '../components/filter/types';
 
 export abstract class ActiveFilterStoreInterface {
@@ -43,6 +46,8 @@ enum storageKeys {
     ORDER = 'order',
 }
 
+const StoreEvent = new CustomEvent(events.STORE_UPDATED);
+
 export abstract class CartStoreInterface {
     protected _orderInfo: cartProductInterface[];
 
@@ -54,6 +59,10 @@ export abstract class CartStoreInterface {
         return this._orderInfo;
     };
 
+    getQuantity = () => {
+        return this.get().reduce((acc, rec) => acc + rec.amount, 0);
+    };
+
     getById = (productId: number) => {
         const cuurentProduct = this.get().find(({ id }) => productId === id);
         return cuurentProduct || null;
@@ -63,29 +72,32 @@ export abstract class CartStoreInterface {
         this._orderInfo = orders;
     };
 
-    increase = (order: cartProductInterface) => {
+    increase = (orderId: number) => {
         let currentProducts = this.get();
-        const currentProductCart = currentProducts.find(({ id }) => id === order.id) || null;
+        const currentProductCart = currentProducts.find(({ id }) => id === orderId) || null;
+        const currentData = data.find(({ id }) => id === orderId) as PetsInterface;
+
         if (currentProductCart) {
-            currentProductCart.amount = currentProductCart.amount + order.amount;
+            currentProductCart.amount = currentProductCart.amount + 1;
             currentProducts = currentProducts.map((el) => {
-                if (el.id === order.id) {
+                if (el.id === orderId) {
                     return currentProductCart;
                 }
                 return el;
             });
         } else {
-            currentProducts.push(order);
+            currentProducts.push({ ...currentData, amount: 1 });
         }
 
         this.addToStorage(currentProducts);
     };
 
-    decrease = (order: cartProductInterface) => {
+    decrease = (orderId: number) => {
         let currentProducts = this.get();
-        const currentProductCart = currentProducts.find(({ id }) => id === order.id) || null;
+        const currentProductCart = currentProducts.find(({ id }) => id === orderId) || null;
+
         if (currentProductCart) {
-            currentProductCart.amount = currentProductCart.amount - order.amount;
+            currentProductCart.amount = currentProductCart.amount - 1;
             currentProducts = currentProducts.reduce((acc, rec) => {
                 if (rec.id === currentProductCart.id) {
                     if (currentProductCart.amount <= 0) {
@@ -103,6 +115,7 @@ export abstract class CartStoreInterface {
     addToStorage = (orders: cartProductInterface[]) => {
         this.set(orders);
         localStorage.setItem(storageKeys.ORDER, JSON.stringify(orders));
+        window.dispatchEvent(StoreEvent);
     };
 
     removeFromStorage = () => {
@@ -113,19 +126,20 @@ export abstract class CartStoreInterface {
         return JSON.parse(localStorage.getItem(storageKeys.ORDER) || '[]') as cartProductInterface[] | [];
     };
 
-    remove = (order: cartProductInterface) => {
+    remove = (orderId: number) => {
         let currentProducts = this.get();
-        const currentProductCart = currentProducts.find(({ id }) => id === order.id) || null;
+        const currentProductCart = currentProducts.find(({ id }) => id === orderId) || null;
 
         if (currentProductCart) {
-            currentProducts = currentProducts.filter(({ id }) => id !== order.id);
+            currentProducts = currentProducts.filter(({ id }) => id !== orderId);
         }
 
         this.addToStorage(currentProducts);
     };
 }
 
-export interface cartProductInterface {
+export interface cartProductInterface extends PetsInterface {
     id: number;
     amount: number;
+    price: number;
 }

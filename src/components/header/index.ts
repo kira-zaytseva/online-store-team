@@ -1,5 +1,6 @@
-import { routes } from '../../enums';
+import { events, routes } from '../../enums';
 import Component from '../../types/component';
+import CartStore from '../../store/cart';
 class Header extends Component {
     headerContainer: HTMLDivElement;
     constructor(tagName: string, className: string) {
@@ -39,6 +40,7 @@ class Header extends Component {
         const catalogPage = document.createElement('a');
         catalogPage.href = `#${routes.CatalogPage}`;
         catalogPage.textContent = 'Catalog';
+        catalogPage.className = 'catalog-link';
 
         const cartPageIcon = new Image();
         cartPageIcon.src = 'https://i.imgur.com/fCVCI57.png';
@@ -51,16 +53,24 @@ class Header extends Component {
         stats.className = 'flex';
         const quantity = document.createElement('span');
         quantity.className = 'selected-items';
-        quantity.textContent = '10';
 
         const totalBill = document.createElement('span');
-        totalBill.textContent = '100$';
         stats.append(quantity, totalBill);
 
         leftColumn.append(mainPageLogo, catalogPage);
         rightColumn.append(phoneLink, workingTime, cartLink, stats);
 
         this.headerContainer.append(leftColumn, rightColumn);
+        const updateCartStats = () => {
+            const currentOrderProducts = CartStore.get();
+            const currentTotalPrice = currentOrderProducts.reduce((acc, rec) => acc + rec.amount * rec.price, 0);
+            quantity.textContent = String(CartStore.getQuantity());
+            totalBill.textContent = `${currentTotalPrice}$`;
+        };
+
+        updateCartStats();
+
+        window.addEventListener(events.STORE_UPDATED, updateCartStats);
     }
 
     render() {

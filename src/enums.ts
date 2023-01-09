@@ -4,3 +4,7 @@ export const enum routes {
     ProductPage = 'product-page',
     CartPage = 'cart-page',
 }
+
+export const enum events {
+    STORE_UPDATED = 'store_updated',
+}

@@ -1,4 +1,4 @@
-import { QuantityInterface } from './types';
+import { QuantityInterface, quantityStatus } from './types';
 
 export const createQuantity = ({ max, value, setValue }: QuantityInterface): HTMLFieldSetElement => {
     let currentValue: number = value || 0;
@@ -29,16 +29,16 @@ export const createQuantity = ({ max, value, setValue }: QuantityInterface): HTM
 
     buttonDecrease.addEventListener('click', () => {
         currentValue -= 1;
-        setInputValue();
+        setInputValue(quantityStatus.DECREASE);
     });
 
     buttonIncrease.addEventListener('click', () => {
         currentValue += 1;
-        setInputValue();
+        setInputValue(quantityStatus.INCREASE);
     });
 
-    function setInputValue(): void {
-        setValue(currentValue);
+    function setInputValue(quantityStatus: string): void {
+        setValue(currentValue, quantityStatus);
         quantityInput.value = String(currentValue);
         currentValue === 0 ? (buttonDecrease.disabled = true) : (buttonDecrease.disabled = false);
         currentValue >= max ? (buttonIncrease.disabled = true) : (buttonIncrease.disabled = false);

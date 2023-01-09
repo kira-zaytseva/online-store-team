@@ -789,11 +789,8 @@ export const data: PetsInterface[] = [
         brand: 'Chuckit!',
         stock: 17,
     },
-];
-
-export const cats = [
     {
-        id: 1,
+        id: 26,
         title: 'Sheba Soup Tuna Fillets Wet Cat Food Pouches - 4 x 40g',
         information: [
             {
@@ -817,9 +814,10 @@ export const cats = [
         pet: 'cats',
         category: 'Food',
         stock: 6,
+        brand: 'Sheba',
     },
     {
-        id: 2,
+        id: 27,
         title: 'Sheba Soup Chicken Fillets Wet Cat Food Pouches - 4 x 40g',
         information: [
             {
@@ -844,6 +842,7 @@ export const cats = [
         pet: 'cats',
         category: 'Food',
         stock: 5,
+        brand: 'Sheba',
     },
 ];
 

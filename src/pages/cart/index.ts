@@ -2,6 +2,12 @@ import { createModal } from '../../components/modal';
 import { createButton } from '../../components/button';
 import { createQuantity } from '../../components/quantity/quantity';
 import Page from '../../types/page';
+import CartStore from '../../store/cart';
+import { cartProductInterface } from '../../store/types';
+import { quantityStatus } from 'components/quantity/types';
+import { events } from '../../enums';
+
+const sale = 0;
 
 class CartPage extends Page {
     constructor(id: string) {
@@ -9,6 +15,7 @@ class CartPage extends Page {
     }
 
     createCartPage() {
+        const currentOrderProducts = CartStore.get();
         const cartContainer = document.createElement('article');
         cartContainer.className = 'cart-container';
 
@@ -16,7 +23,6 @@ class CartPage extends Page {
         cartSection.className = 'cart-section';
 
         const cartTitle = document.createElement('h1');
-        cartTitle.innerText = `Cart `;
         cartTitle.className = 'cart-title';
 
         const cartCalculations = document.createElement('div');
@@ -40,21 +46,18 @@ class CartPage extends Page {
         const productsSumInfo = document.createElement('div');
         productsSumInfo.className = 'products-sum-info';
         const sumProducts = document.createElement('span');
-        sumProducts.innerText = `Products `;
         const totalPrice = document.createElement('span');
-        totalPrice.innerText = '$10';
         const saleInfo = document.createElement('div');
         saleInfo.className = 'sale-info';
         const saleText = document.createElement('span');
         saleText.innerText = 'Sale';
         const saleAmount = document.createElement('span');
-        saleAmount.innerText = '$1';
+        saleAmount.innerText = `${sale}$`;
         const paymentInfo = document.createElement('div');
         paymentInfo.className = 'payment-info';
         const paymentText = document.createElement('span');
         paymentText.innerText = 'Payable';
         const paymentAmount = document.createElement('span');
-        paymentAmount.innerText = '$9';
 
         const catBg = document.createElement('img');
         catBg.src = 'https://i.imgur.com/F8sJeSU.png';
@@ -62,7 +65,7 @@ class CartPage extends Page {
 
         cartContainer.appendChild(cartTitle);
         cartContainer.appendChild(cartSection);
-        cartSection.appendChild(this.createCartList());
+        cartSection.appendChild(this.createCartList(currentOrderProducts));
         cartSection.appendChild(cartCalculations);
         cartCalculations.appendChild(promocode);
         promocode.appendChild(promocodeTitle);
@@ -81,43 +84,88 @@ class CartPage extends Page {
         cartSum.appendChild(
             createButton({ buttonText: 'Buy now', onClick: () => this.container.appendChild(createModal()) })
         );
+        const updateCartStats = () => {
+            const currentOrderProducts = CartStore.get();
+            const currentTotalPrice = currentOrderProducts.reduce((acc, rec) => acc + rec.amount * rec.price, 0);
+            cartTitle.innerText = `Cart ${CartStore.getQuantity()} items`;
+            totalPrice.innerText = `${currentTotalPrice}$`;
+            sumProducts.innerText = `Products (${CartStore.getQuantity()})`;
+            paymentAmount.innerText = `${currentTotalPrice - sale}$`;
+        };
+        updateCartStats();
         cartContainer.appendChild(catBg);
+        window.addEventListener(events.STORE_UPDATED, updateCartStats);
+
         return cartContainer;
     }
 
-    createCartList() {
+    createCartList(currentOrderProducts: cartProductInterface[]) {
         const cartList = document.createElement('ul');
         cartList.className = 'cart-list';
-        const cartItem = document.createElement('li');
-        cartItem.className = 'cart-item';
-        const itemImg = document.createElement('img');
-        itemImg.className = 'item-img';
-        itemImg.src = 'https://i.imgur.com/HRVaJUg.jpg';
-        const itemInfo = document.createElement('div');
-        itemInfo.className = 'item-info';
-        const itemTitle = document.createElement('h2');
-        itemTitle.className = 'item-title';
-        itemTitle.innerText = 'dcev';
-        const itemStock = document.createElement('span');
-        itemStock.className = 'item-stock';
-        itemStock.innerText = 'In stock';
-        const rightColumn = document.createElement('div');
-        rightColumn.className = 'right-column';
-        const deleteItemImg = document.createElement('img');
-        deleteItemImg.src = 'https://i.imgur.com/e1fZQSK.png';
-        deleteItemImg.className = 'delete-img';
-        const itemPrice = document.createElement('span');
-        itemPrice.className = 'item-price';
-        itemPrice.innerText = '$10';
-        cartList.appendChild(cartItem);
-        cartItem.appendChild(itemImg);
-        cartItem.appendChild(itemInfo);
-        itemInfo.appendChild(itemTitle);
-        itemInfo.appendChild(itemStock);
-        itemInfo.appendChild(createQuantity({ max: 5, setValue: (value) => console.log(value), value: 2 }));
-        cartItem.appendChild(rightColumn);
-        rightColumn.appendChild(deleteItemImg);
-        rightColumn.appendChild(itemPrice);
+        currentOrderProducts.forEach(({ price, amount, id, stock, title, images }) => {
+            const cartItem = document.createElement('li');
+            cartItem.className = 'cart-item';
+            const itemImg = document.createElement('img');
+            itemImg.className = 'item-img';
+            itemImg.src = images[0];
+            const itemInfo = document.createElement('div');
+            itemInfo.className = 'item-info';
+            const itemTitle = document.createElement('h2');
+            itemTitle.className = 'item-title';
+            itemTitle.innerText = title;
+            const itemStock = document.createElement('span');
+            itemStock.className = 'item-stock';
+            itemStock.innerText = `${stock ? 'In stock' : 'Not available'}`;
+            const rightColumn = document.createElement('div');
+            rightColumn.className = 'right-column';
+            const deleteItemImg = document.createElement('img');
+            deleteItemImg.src = 'https://i.imgur.com/e1fZQSK.png';
+            deleteItemImg.className = 'delete-img';
+            const itemPrice = document.createElement('span');
+            itemPrice.className = 'item-price';
+            itemPrice.innerText = `${amount * price}$`;
+            cartList.appendChild(cartItem);
+            cartItem.appendChild(itemImg);
+            cartItem.appendChild(itemInfo);
+            itemInfo.appendChild(itemTitle);
+            itemInfo.appendChild(itemStock);
+
+            const setValue = (value: number, status: string) => {
+                switch (status) {
+                    case quantityStatus.DECREASE: {
+                        CartStore.decrease(id);
+                        break;
+                    }
+                    case quantityStatus.INCREASE: {
+                        CartStore.increase(id);
+                        break;
+                    }
+                }
+            };
+
+            const removeOrder = (e: MouseEvent) => {
+                e.preventDefault;
+                CartStore.remove(id);
+                cartItem.remove();
+            };
+
+            const updateCartStats = () => {
+                const currentOrder = CartStore.getById(id);
+                if (currentOrder) {
+                    const { amount, price } = currentOrder;
+                    itemPrice.innerText = `${amount * price}$`;
+                }
+            };
+
+            window.addEventListener(events.STORE_UPDATED, updateCartStats);
+
+            itemInfo.appendChild(createQuantity({ max: stock, setValue, value: amount }));
+            cartItem.appendChild(rightColumn);
+            rightColumn.appendChild(deleteItemImg);
+            rightColumn.appendChild(itemPrice);
+            deleteItemImg.addEventListener('click', removeOrder);
+        });
+
         return cartList;
     }
 

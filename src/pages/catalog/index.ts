@@ -26,7 +26,7 @@ class CatalogPage extends Page {
         }
 
         const currentPets = data.filter(({ pet, category, brand }) => {
-            if (paramPet && paramPet !== pet) {
+            if (filterData?.pet && !filterData.pet.includes(pet)) {
                 return false;
             }
 

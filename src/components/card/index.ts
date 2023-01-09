@@ -12,24 +12,14 @@ export const createCard = ({ title, image, price, pet, id }: CardInterface): HTM
 
     const addToCart = (e: MouseEvent) => {
         e.preventDefault();
-        const currentOrder = {
-            id,
-            amount: 1,
-        };
-
-        cartStore.increase(currentOrder);
+        cartStore.increase(id);
         addBtn.style.display = 'none';
         removeBtn.style.display = 'block';
     };
 
     const removeFromCart = (e: MouseEvent) => {
         e.preventDefault();
-        const currentOrder = {
-            id,
-            amount: 0,
-        };
-
-        cartStore.remove(currentOrder);
+        cartStore.remove(id);
         removeBtn.style.display = 'none';
         addBtn.style.display = 'block';
     };

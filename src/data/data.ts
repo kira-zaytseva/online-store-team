@@ -767,6 +767,62 @@ export const dogs = [
     },
 ];
 
+export const cats = [
+    {
+        id: 1,
+        title: 'Sheba Soup Tuna Fillets Wet Cat Food Pouches - 4 x 40g',
+        information: [
+            {
+                id: 1,
+                question: 'Description',
+                answer: 'High quality adult cat food providing complete nutrition for your feline companion.',
+            },
+            {
+                id: 2,
+                question: 'Country',
+                answer: 'United States',
+            },
+            {
+                id: 3,
+                question: 'Brand',
+                answer: 'Sheba',
+            },
+        ],
+        price: 95,
+        images: ['https://i.imgur.com/Qd2FkQT.png', 'https://i.imgur.com/6Raaoyi.png'],
+        pet: 'cats',
+        category: 'Food',
+        stock: 6,
+    },
+    {
+        id: 2,
+        title: 'Sheba Soup Chicken Fillets Wet Cat Food Pouches - 4 x 40g',
+        information: [
+            {
+                id: 1,
+                question: 'Description',
+                answer:
+                    'Sheba soup for cats is a classic recipe of delicately flaked morsels in a smooth, silky soup your cat will adore.',
+            },
+            {
+                id: 2,
+                question: 'Country',
+                answer: 'United States',
+            },
+            {
+                id: 3,
+                question: 'Brand',
+                answer: 'Sheba',
+            },
+        ],
+        price: 85,
+        images: ['https://i.imgur.com/sNgEPq1.png', 'https://i.imgur.com/1aidDhL.png'],
+        pet: 'cats',
+        category: 'Food',
+        stock: 5,
+    },
+];
+
 export const pets = [
     {
         title: 'dogs',

@@ -1,0 +1,52 @@
+.search-form {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: 5px;
+    position: relative;
+}
+
+.search-input {
+    padding: 4px 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+}
+
+.search-cancel {
+    position: absolute;
+    right: 50px;
+    cursor: pointer;
+}
+
+.search-cancel::after,
+.search-cancel::before {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 2px;
+    background: var(--border-color);
+}
+
+.search-cancel:before {
+    transform: rotate(45deg);
+}
+
+.search-cancel:after {
+    transform: rotate(-45deg);
+}
+
+.search-button {
+    background: url('https://i.imgur.com/K9PBacO.png') no-repeat;
+    background-size: auto 90%;
+    border: none;
+    width: 24px;
+    height: 24px;
+}
+
+.search-button:hover {
+    border: .1px solid var(--border-color);
+}
+
+.search-button:active {
+    border: .1px solid var(--element-hover);
+}

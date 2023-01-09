@@ -1,6 +1,7 @@
 import { routes } from '../enums';
+import { PetsInterface } from './types';
 
-export const dogs = [
+export const data: PetsInterface[] = [
     {
         id: 1,
         title: 'Puppy food',
@@ -26,6 +27,7 @@ export const dogs = [
         images: ['https://i.imgur.com/HRVaJUg.jpg', 'https://i.imgur.com/juKJAEL.jpg'],
         pet: 'dogs',
         category: 'Food',
+        brand: 'Royal Canin',
         stock: 7,
     },
     {
@@ -53,6 +55,7 @@ export const dogs = [
         images: ['https://i.imgur.com/KwumyL4.jpg', 'https://i.imgur.com/pHhvBuu.jpg'],
         pet: 'dogs',
         category: 'Toys',
+        brand: 'PetSafe',
         stock: 1,
     },
     {
@@ -85,6 +88,7 @@ export const dogs = [
         ],
         pet: 'dogs',
         category: 'Toys',
+        brand: 'PetSafe',
         stock: 4,
     },
     {
@@ -116,6 +120,7 @@ export const dogs = [
         ],
         pet: 'dogs',
         category: 'Food',
+        brand: 'Royal Canin',
         stock: 0,
     },
     {
@@ -148,6 +153,7 @@ export const dogs = [
         ],
         pet: 'dogs',
         category: 'Food',
+        brand: 'Purina',
         stock: 3,
     },
     {
@@ -168,7 +174,7 @@ export const dogs = [
             {
                 id: 3,
                 question: 'Brand',
-                answer: 'Bones & Chews',
+                answer: 'Bones Chews',
             },
         ],
         price: 2,
@@ -179,6 +185,7 @@ export const dogs = [
         ],
         pet: 'dogs',
         category: 'Food',
+        brand: 'Bones Chews',
         stock: 9,
     },
     {
@@ -211,6 +218,7 @@ export const dogs = [
         ],
         pet: 'dogs',
         category: 'Toys',
+        brand: 'PetSafe',
         stock: 3,
     },
     {
@@ -242,6 +250,7 @@ export const dogs = [
         ],
         pet: 'dogs',
         category: 'Toys',
+        brand: 'Chuckit!',
         stock: 15,
     },
     {
@@ -273,6 +282,7 @@ export const dogs = [
             'https://i.imgur.com/xYomeUY.jpg',
         ],
         category: 'Toys',
+        brand: 'PetSafe',
         stock: 0,
     },
     {
@@ -303,6 +313,7 @@ export const dogs = [
         ],
         pet: 'dogs',
         category: 'Toys',
+        brand: 'PetSafe',
         stock: 7,
     },
     {
@@ -327,8 +338,6 @@ export const dogs = [
             },
         ],
         price: 13,
-        brand: 'Chuckit!',
-        country: 'United Kingdom',
         images: [
             'https://i.imgur.com/gBQa0Qe.jpg',
             'https://i.imgur.com/NIrZZeQ.jpg',
@@ -336,6 +345,7 @@ export const dogs = [
         ],
         pet: 'dogs',
         category: 'Toys',
+        brand: 'Chuckit!',
         stock: 1,
     },
     {
@@ -368,6 +378,7 @@ export const dogs = [
         ],
         pet: 'dogs',
         category: 'Grooming supplies',
+        brand: 'Jasper',
         stock: 6,
     },
     {
@@ -399,6 +410,7 @@ export const dogs = [
         ],
         pet: 'dogs',
         category: 'Grooming supplies',
+        brand: 'Jasper',
         stock: 3,
     },
     {
@@ -426,6 +438,7 @@ export const dogs = [
         images: ['https://i.imgur.com/D7UopwG.jpg', 'https://i.imgur.com/NhZmVCZ.jpg'],
         pet: 'dogs',
         category: 'Grooming supplies',
+        brand: 'Frisco',
         stock: 7,
     },
     {
@@ -457,6 +470,7 @@ export const dogs = [
         ],
         pet: 'dogs',
         category: 'Grooming supplies',
+        brand: 'Frisco',
         stock: 2,
     },
     {
@@ -488,6 +502,7 @@ export const dogs = [
         ],
         pet: 'dogs',
         category: 'Grooming supplies',
+        brand: 'Frisco',
         stock: 3,
     },
     {
@@ -519,6 +534,7 @@ export const dogs = [
         ],
         pet: 'dogs',
         category: 'Grooming supplies',
+        brand: 'Frisco',
         stock: 2,
     },
     {
@@ -550,6 +566,7 @@ export const dogs = [
         ],
         pet: 'dogs',
         category: 'Grooming supplies',
+        brand: 'Frisco',
         stock: 0,
     },
     {
@@ -581,6 +598,7 @@ export const dogs = [
         ],
         pet: 'dogs',
         category: 'Food',
+        brand: 'Royal Canin',
         stock: 7,
     },
     {
@@ -608,6 +626,7 @@ export const dogs = [
         images: ['https://i.imgur.com/kYCpJkD.jpg', 'https://i.imgur.com/lBCdu2C.jpg'],
         category: 'Food',
         pet: 'dogs',
+        brand: 'Purina',
         stock: 4,
     },
     {
@@ -640,6 +659,7 @@ export const dogs = [
         ],
         category: 'Toys',
         pet: 'dogs',
+        brand: 'PetSafe',
         stock: 3,
     },
     {
@@ -671,6 +691,7 @@ export const dogs = [
         ],
         pet: 'dogs',
         category: 'Toys',
+        brand: 'Chuckit!',
         stock: 2,
     },
     {
@@ -703,6 +724,7 @@ export const dogs = [
         ],
         pet: 'dogs',
         category: 'Toys',
+        brand: 'Frisco',
         stock: 0,
     },
     {
@@ -736,6 +758,7 @@ export const dogs = [
         ],
         pet: 'dogs',
         category: 'Toys',
+        brand: 'PetSafe',
         stock: 3,
     },
     {
@@ -763,6 +786,7 @@ export const dogs = [
         images: ['https://i.imgur.com/K7vnCcg.jpg', 'https://i.imgur.com/z0PlzAX.jpg'],
         pet: 'dogs',
         category: 'Toys',
+        brand: 'Chuckit!',
         stock: 17,
     },
 ];

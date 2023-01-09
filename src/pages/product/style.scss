@@ -10,9 +10,34 @@
     margin-bottom: 50px;
 }
 
+.images-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 .product-image {
     width: 320px;
     height: 320px;
+    object-fit: contain;
+}
+
+.additional-images {
+    display: flex;
+    justify-content: space-around;
+    width: 70%;
+}
+
+.product-images {
+    width: 50px;
+    height: 50px;
+    padding: 5px;
+    object-fit: contain;
+    border: 1px solid lightgray;
+}
+
+.product-images:hover {
+    border: 1px solid var(--border-color);
 }
 
 .product-info {
@@ -24,6 +49,7 @@
 .product-page-title {
     font-size: 24px;
     margin-bottom: 0;
+    max-width: 245px;
 }
 
 .price {

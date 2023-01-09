@@ -6,4 +6,5 @@ export interface ButtonInterface {
     classNames?: string;
     id?: number | null;
     buttonText: string;
+    type?: string;
 }

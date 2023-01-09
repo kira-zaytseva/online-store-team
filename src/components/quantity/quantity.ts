@@ -14,6 +14,7 @@ export const createQuantity = ({ max, value, setValue }: QuantityInterface): HTM
 
     const buttonDecrease = document.createElement('button');
     buttonDecrease.className = `quantity__btn quantity__btn--decrease`;
+    buttonDecrease.type = 'button';
     quantity.appendChild(buttonDecrease);
 
     const quantityInput = document.createElement('input');
@@ -23,6 +24,7 @@ export const createQuantity = ({ max, value, setValue }: QuantityInterface): HTM
 
     const buttonIncrease = document.createElement('button');
     buttonIncrease.className = `quantity__btn quantity__btn--increase`;
+    buttonIncrease.type = 'button';
     quantity.appendChild(buttonIncrease);
 
     buttonDecrease.addEventListener('click', () => {

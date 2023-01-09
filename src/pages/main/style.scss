@@ -1,8 +1,9 @@
 .main-section {
     position: relative;
-    min-height: 80vh;
+    min-height: calc(100vh - 172px);
     height: 100%;
     padding: 50px 50px;
+    overflow: hidden;
 }
 
 .mainpage-title {
@@ -39,4 +40,16 @@
     right: 350px;
     width: 200px;
     height: 175px;
+}
+
+@media (max-width: 1030px) {
+    .fish-bg {
+        display: none;
+    }
+}
+
+@media (max-width: 715px) {
+    .dog-bg, .cat-bg {
+        display: none;
+    }
 }

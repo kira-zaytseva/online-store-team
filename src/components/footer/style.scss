@@ -1,0 +1,28 @@
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 150px;
+    border-top: 2px solid var(--border-color);
+}
+
+.footer-list { 
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 40%;
+    gap: 10px;
+    padding: 0;
+    list-style: none;
+}
+
+.footer-link { 
+    text-decoration: underline;
+}
+
+.footer-link:hover { 
+    color: var(--element-hover);
+}

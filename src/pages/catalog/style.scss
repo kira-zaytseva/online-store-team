@@ -9,10 +9,18 @@
     align-items: flex-start;
 }
 
+.not-found-text {
+    width: 100%;
+    font-size: 36px;
+    text-align: center;
+    margin: 0;
+}
+
 .pets-bg {
     position: absolute;
     left: 100px;
     bottom: 0;
     width: 340px;
     height: 230px;
+    z-index: -1;
 }

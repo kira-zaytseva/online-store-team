@@ -121,7 +121,7 @@ export const data: PetsInterface[] = [
         pet: 'dogs',
         category: 'Food',
         brand: 'Royal Canin',
-        stock: 0,
+        stock: 3,
     },
     {
         id: 5,
@@ -283,7 +283,7 @@ export const data: PetsInterface[] = [
         ],
         category: 'Toys',
         brand: 'PetSafe',
-        stock: 0,
+        stock: 3,
     },
     {
         id: 10,
@@ -567,7 +567,7 @@ export const data: PetsInterface[] = [
         pet: 'dogs',
         category: 'Grooming supplies',
         brand: 'Frisco',
-        stock: 0,
+        stock: 3,
     },
     {
         id: 19,
@@ -725,7 +725,7 @@ export const data: PetsInterface[] = [
         pet: 'dogs',
         category: 'Toys',
         brand: 'Frisco',
-        stock: 0,
+        stock: 3,
     },
     {
         id: 24,

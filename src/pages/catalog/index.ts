@@ -2,7 +2,6 @@ import { createSearch } from '../../components/search';
 import { createFilter } from '../../components/filter';
 import Page from '../../types/page';
 import { createCatalogList } from '../../components/products-list';
-import ErrorPage, { ErrorTypes } from '../error';
 import { data } from '../../data/data';
 import { convertQuery } from '../../helpers/convert-query';
 import { routes } from '../../enums';
@@ -41,10 +40,6 @@ class CatalogPage extends Page {
             return true;
         });
 
-        if (!currentPets.length) {
-            return new ErrorPage('errorPage', ErrorTypes.NotFound).render();
-        }
-
         const catalogContainer = document.createElement('div');
         catalogContainer.className = 'catalog-container';
         const catalogTitle = document.createElement('h1');
@@ -55,11 +50,14 @@ class CatalogPage extends Page {
         petsBg.alt = '';
         petsBg.src = 'https://i.imgur.com/LZb13Y7.png';
         petsBg.className = 'pets-bg';
+        const notFound = document.createElement('p');
+        notFound.className = 'not-found-text';
+        notFound.innerText = 'Products not found. Try enother filter';
         catalogContainer.appendChild(createSearch());
         catalogContainer.appendChild(catalogTitle);
         catalogContainer.appendChild(catalogSection);
         catalogSection.appendChild(createFilter(filterData));
-        catalogSection.appendChild(createCatalogList(currentPets));
+        catalogSection.appendChild(currentPets.length ? createCatalogList(currentPets) : notFound);
         catalogContainer.appendChild(petsBg);
         return catalogContainer;
     }

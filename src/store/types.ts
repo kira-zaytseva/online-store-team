@@ -37,6 +37,10 @@ export abstract class ActiveFilterStoreInterface {
         }
     };
 
+    removeAll = () => {
+        this._activeFilters = {};
+    };
+
     get = () => {
         return this._activeFilters;
     };

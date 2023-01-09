@@ -20,6 +20,7 @@ export const createQuantity = ({ max, value, setValue }: QuantityInterface): HTM
     const quantityInput = document.createElement('input');
     quantityInput.className = 'quantity__input';
     quantityInput.value = String(currentValue);
+    quantityInput.disabled = true;
     quantity.appendChild(quantityInput);
 
     const buttonIncrease = document.createElement('button');
@@ -37,12 +38,17 @@ export const createQuantity = ({ max, value, setValue }: QuantityInterface): HTM
         setInputValue(quantityStatus.INCREASE);
     });
 
-    function setInputValue(quantityStatus: string): void {
-        setValue(currentValue, quantityStatus);
-        quantityInput.value = String(currentValue);
+    function checkValue() {
         currentValue === 0 ? (buttonDecrease.disabled = true) : (buttonDecrease.disabled = false);
         currentValue >= max ? (buttonIncrease.disabled = true) : (buttonIncrease.disabled = false);
     }
+    function setInputValue(quantityStatus: string): void {
+        setValue(currentValue, quantityStatus);
+        quantityInput.value = String(currentValue);
+        checkValue();
+    }
+
+    checkValue();
 
     return fieldsetQuantity;
 };

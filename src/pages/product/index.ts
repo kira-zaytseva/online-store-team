@@ -1,6 +1,5 @@
 import Page from '../../types/page';
 import { createButton } from '../../components/button';
-import { createQuantity } from '../../components/quantity/quantity';
 import { createAccordeon } from '../../components/accordeon/accordeon';
 import { data } from '../../data/data';
 import { AccordeonObject } from '../../components/accordeon/types';
@@ -9,6 +8,7 @@ import ErrorPage, { ErrorTypes } from '../error';
 import { routes } from '../../enums';
 import { convertQuery } from '../../helpers/convert-query';
 import { createModal } from '../../components/modal';
+import CartStore from '../../store/cart';
 
 class ProductPage extends Page {
     constructor(id: string) {
@@ -16,6 +16,8 @@ class ProductPage extends Page {
     }
 
     createProductPage(params: URLSearchParams): HTMLElement {
+        const cartStore = CartStore;
+
         const paramPet = params.get('pet') || null;
         const paramId = Number(params.get('id'));
         const currentPet = data.find(({ id, pet }) => id === paramId && paramPet === pet) || null;
@@ -68,6 +70,21 @@ class ProductPage extends Page {
                 page: routes.CatalogPage,
             })
         );
+
+        const addToCart = (e: MouseEvent) => {
+            e.preventDefault();
+            cartStore.increase(currentPet.id);
+            addBtn.style.display = 'none';
+            removeBtn.style.display = 'block';
+        };
+
+        const removeFromCart = (e: MouseEvent) => {
+            e.preventDefault();
+            cartStore.remove(currentPet.id);
+            removeBtn.style.display = 'none';
+            addBtn.style.display = 'block';
+        };
+
         productSection.appendChild(productCard);
         productCard.appendChild(imagesGallery);
         imagesGallery.appendChild(productMainImage);
@@ -77,11 +94,33 @@ class ProductPage extends Page {
         productInfo.appendChild(productPrice);
         productInfo.appendChild(productStock);
         productInfo.appendChild(productForm);
-        productForm.appendChild(createQuantity({ max: 5, setValue: (value) => console.log(value), value: 2 }));
-        productForm.appendChild(createButton({ buttonText: 'Add to cart' }));
-        productForm.appendChild(
-            createButton({ buttonText: 'Buy', onClick: () => this.container.appendChild(createModal()) })
-        );
+        const addBtn = createButton({ buttonText: 'Add to cart', onClick: addToCart });
+        const removeBtn = createButton({
+            buttonText: 'Drop from cart',
+            classNames: 'remove-btn',
+            onClick: removeFromCart,
+        });
+
+        const isExisted = Boolean(cartStore.getById(currentPet.id));
+
+        if (isExisted) {
+            addBtn.style.display = 'none';
+            removeBtn.style.display = 'block';
+        }
+
+        productForm.appendChild(addBtn);
+        productForm.appendChild(removeBtn);
+        const openModal = (e: MouseEvent) => {
+            e.preventDefault();
+            const isExisted = cartStore.getById(currentPet.id);
+            if (!isExisted) {
+                cartStore.increase(currentPet.id);
+            }
+
+            createModal();
+            window.location.href = `${window.location.pathname}#${routes.CartPage}`;
+        };
+        productForm.appendChild(createButton({ buttonText: 'Buy', onClick: openModal }));
         productSection.appendChild(faq);
         faq.appendChild(createAccordeon(currentPet.information as Array<AccordeonObject>));
         return productSection;

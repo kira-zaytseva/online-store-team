@@ -1,4 +1,6 @@
+import { routes } from '../../enums';
 import { createButton } from '../../components/button';
+import CartStore from '../../store/cart';
 
 export const createModal = () => {
     const modalWindow = document.createElement('div');
@@ -7,7 +9,25 @@ export const createModal = () => {
     modalBg.className = 'modal-bg';
     const modalForm = document.createElement('form');
     modalForm.className = 'modal-form';
-
+    const onSubmit = (e: MouseEvent) => {
+        e.preventDefault();
+        if (
+            validateName(nameInput.value) &&
+            validatePhone(phoneInput.value) &&
+            validateAddress(addressInput.value) &&
+            validateEmail(emailInput.value) &&
+            validateCardNumber(cardNumberInput.value) &&
+            validateExpiration(validityInput.value) &&
+            validateCvc(cvcInput.value)
+        ) {
+            modalForm.innerHTML = '<p>Congratulations! Purchase completed</p>';
+            setTimeout(() => {
+                modalWindow.remove();
+                window.location.href = `${window.location.pathname}#${routes.CatalogPage}`;
+            }, 5000);
+            CartStore.removeAll();
+        }
+    };
     const formName = document.createElement('div');
     formName.className = 'form-name';
     const nameLabel = document.createElement('label');
@@ -19,16 +39,16 @@ export const createModal = () => {
     nameInput.placeholder = 'Enter your name, surname';
     nameInput.required = true;
     nameInput.type = 'text';
-    const regex = /^(?:\b\w{3,}\b\s*){2,}$/gm;
-    nameInput.pattern = String(regex);
-    nameInput.addEventListener('change', () => {
-        console.log(validateName(nameInput.value));
+    nameInput.addEventListener('change', (e: Event) => {
+        const currentElement = <HTMLElement>e.target;
         if (validateName(nameInput.value)) {
             nameInput.classList.add('valid');
             nameInput.classList.remove('invalid');
+            currentElement.nextElementSibling?.setAttribute('style', 'display: none');
         } else {
             nameInput.classList.add('invalid');
             nameInput.classList.remove('valid');
+            currentElement.nextElementSibling?.setAttribute('style', 'display: block');
         }
     });
 
@@ -43,13 +63,16 @@ export const createModal = () => {
     phoneInput.placeholder = 'Enter your phone number';
     phoneInput.type = 'tel';
     phoneInput.required = true;
-    phoneInput.addEventListener('change', () => {
+    phoneInput.addEventListener('change', (e: Event) => {
+        const currentElement = <HTMLElement>e.target;
         if (validatePhone(phoneInput.value)) {
             phoneInput.classList.add('valid');
             phoneInput.classList.remove('invalid');
+            currentElement.nextElementSibling?.setAttribute('style', 'display: none');
         } else {
             phoneInput.classList.add('invalid');
             phoneInput.classList.remove('valid');
+            currentElement.nextElementSibling?.setAttribute('style', 'display: block');
         }
     });
     phoneInput.title = 'Use format: +375333333333';
@@ -65,13 +88,16 @@ export const createModal = () => {
     addressInput.placeholder = 'Enter your address';
     addressInput.type = 'text';
     addressInput.required = true;
-    addressInput.addEventListener('change', () => {
+    addressInput.addEventListener('change', (e: Event) => {
+        const currentElement = <HTMLElement>e.target;
         if (validateAddress(addressInput.value)) {
             addressInput.classList.add('valid');
             addressInput.classList.remove('invalid');
+            currentElement.nextElementSibling?.setAttribute('style', 'display: none');
         } else {
             addressInput.classList.add('invalid');
             addressInput.classList.remove('valid');
+            currentElement.nextElementSibling?.setAttribute('style', 'display: block');
         }
     });
 
@@ -86,13 +112,16 @@ export const createModal = () => {
     emailInput.placeholder = 'Enter your email';
     emailInput.type = 'email';
     emailInput.required = true;
-    emailInput.addEventListener('change', () => {
+    emailInput.addEventListener('change', (e: Event) => {
+        const currentElement = <HTMLElement>e.target;
         if (validateEmail(emailInput.value)) {
             emailInput.classList.add('valid');
             emailInput.classList.remove('invalid');
+            currentElement.nextElementSibling?.setAttribute('style', 'display: none');
         } else {
             emailInput.classList.add('invalid');
             emailInput.classList.remove('valid');
+            currentElement.nextElementSibling?.setAttribute('style', 'display: block');
         }
     });
 
@@ -113,18 +142,19 @@ export const createModal = () => {
     const cardNumberInput = document.createElement('input');
     cardNumberInput.className = 'number-input modal-input';
     cardNumberInput.id = 'card-number';
-    cardNumberInput.max = '16';
     cardNumberInput.placeholder = 'xxxx xxxx xxxx xxxx';
     cardNumberInput.type = 'number';
     cardNumberInput.required = true;
-    cardNumberInput.addEventListener('change', () => {
+    cardNumberInput.addEventListener('change', (e: Event) => {
+        const currentElement = <HTMLElement>e.target;
         if (validateCardNumber(cardNumberInput.value)) {
             cardNumberInput.classList.add('valid');
             cardNumberInput.classList.remove('invalid');
+            currentElement.nextElementSibling?.setAttribute('style', 'display: none');
         } else {
             cardNumberInput.classList.add('invalid');
             cardNumberInput.classList.remove('valid');
-            cardNumberInput.setCustomValidity('Check card number');
+            currentElement.nextElementSibling?.setAttribute('style', 'display: block');
         }
     });
     cardNumberInput.addEventListener('keyup', () => {
@@ -168,13 +198,16 @@ export const createModal = () => {
             validityInput.value = currentValue + '/';
         }
     });
-    validityInput.addEventListener('change', () => {
+    validityInput.addEventListener('change', (e: Event) => {
+        const currentElement = <HTMLElement>e.target;
         if (validateExpiration(validityInput.value)) {
             validityInput.classList.add('valid');
             validityInput.classList.remove('invalid');
+            currentElement.nextElementSibling?.setAttribute('style', 'display: none');
         } else {
             validityInput.classList.add('invalid');
             validityInput.classList.remove('valid');
+            currentElement.nextElementSibling?.setAttribute('style', 'display: block');
         }
     });
     const cvc = document.createElement('div');
@@ -187,14 +220,16 @@ export const createModal = () => {
     cvcInput.id = 'cvc';
     cvcInput.type = 'number';
     cvcInput.required = true;
-    cvcInput.max = '3';
-    cvcInput.addEventListener('change', () => {
+    cvcInput.addEventListener('change', (e: Event) => {
+        const currentElement = <HTMLElement>e.target;
         if (validateCvc(cvcInput.value)) {
             cvcInput.classList.add('valid');
             cvcInput.classList.remove('invalid');
+            currentElement.nextElementSibling?.setAttribute('style', 'display: none');
         } else {
             cvcInput.classList.add('invalid');
             cvcInput.classList.remove('valid');
+            currentElement.nextElementSibling?.setAttribute('style', 'display: block');
         }
     });
 
@@ -205,20 +240,31 @@ export const createModal = () => {
 
     modalBg.addEventListener('click', () => modalWindow.remove());
 
+    const createErroeSpan = (): HTMLSpanElement => {
+        const errorSpan = document.createElement('span');
+        errorSpan.innerText = 'Error';
+        errorSpan.className = 'error-span';
+        return errorSpan;
+    };
+
     modalWindow.appendChild(modalForm);
     modalWindow.appendChild(modalBg);
     modalForm.appendChild(formName);
     formName.appendChild(nameLabel);
     formName.appendChild(nameInput);
+    formName.appendChild(createErroeSpan());
     modalForm.appendChild(formPhone);
     formPhone.appendChild(phoneLabel);
     formPhone.appendChild(phoneInput);
+    formPhone.appendChild(createErroeSpan());
     modalForm.appendChild(formAddress);
     formAddress.appendChild(addressLabel);
     formAddress.appendChild(addressInput);
+    formAddress.appendChild(createErroeSpan());
     modalForm.appendChild(formEmail);
     formEmail.appendChild(emailLabel);
     formEmail.appendChild(emailInput);
+    formEmail.appendChild(createErroeSpan());
     modalForm.appendChild(paymentTitle);
     modalForm.appendChild(paymentCard);
     paymentCard.appendChild(cardNumberInfo);
@@ -226,14 +272,18 @@ export const createModal = () => {
     cardNumberInfo.appendChild(cardSystem);
     cardNumber.appendChild(cardNumberLabel);
     cardNumber.appendChild(cardNumberInput);
+    cardNumber.appendChild(createErroeSpan());
     paymentCard.appendChild(validity);
     validity.appendChild(validityLabel);
     validity.appendChild(validityInput);
+    validity.appendChild(createErroeSpan());
     paymentCard.appendChild(cvc);
     cvc.appendChild(cvcLabel);
     cvc.appendChild(cvcInput);
+    cvc.appendChild(createErroeSpan());
+    const pyamentBtn = createButton({ buttonText: 'Pay', type: 'submit', classNames: 'modal-btn', onClick: onSubmit });
     modalForm.appendChild(catOnBtn);
-    modalForm.appendChild(createButton({ buttonText: 'Pay', type: 'submit', classNames: 'modal-btn' }));
+    modalForm.appendChild(pyamentBtn);
     document.body.appendChild(modalWindow);
     // return modalWindow;
 };

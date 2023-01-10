@@ -48,6 +48,7 @@ class Header extends Component {
         const cartLink = document.createElement('a');
         cartLink.href = `#${routes.CartPage}`;
         cartLink.appendChild(cartPageIcon);
+        cartLink.className = 'cart-icon';
 
         const stats = document.createElement('div');
         stats.className = 'flex';

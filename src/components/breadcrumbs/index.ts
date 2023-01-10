@@ -5,10 +5,10 @@ export const createBreadcrumbs = ({ name, category, pet, page }: BreadcrumbsInte
     const breadcrumbsArr = [
         {
             title: 'Main',
-            link: '/',
+            link: window.location.pathname,
         },
     ];
-    const link = `/#${page}`;
+    const link = `${window.location.pathname}#${page}`;
 
     if (pet) {
         breadcrumbsArr.push({

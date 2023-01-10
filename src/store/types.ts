@@ -126,6 +126,10 @@ export abstract class CartStoreInterface {
         localStorage.removeItem(storageKeys.ORDER);
     };
 
+    removeAll = () => {
+        this.addToStorage([]);
+    };
+
     getStorage = (): cartProductInterface[] | [] => {
         return JSON.parse(localStorage.getItem(storageKeys.ORDER) || '[]') as cartProductInterface[] | [];
     };

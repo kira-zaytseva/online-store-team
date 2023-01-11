@@ -1,4 +1,3 @@
-import Page from '../../types/page';
 import MainPage from '../main';
 import CatalogPage from '../catalog';
 import ProductPage from '../product';
@@ -21,6 +20,20 @@ class App {
         this.mainWrapper = document.createElement('main');
     }
 
+    getPage(idPage: string) {
+        if (idPage === routes.MainPage) {
+            return new MainPage(idPage);
+        } else if (idPage.includes(routes.CatalogPage)) {
+            return new CatalogPage(idPage);
+        } else if (idPage === routes.CartPage) {
+            return new CartPage(idPage);
+        } else if (idPage.includes(routes.ProductPage)) {
+            return new ProductPage(idPage);
+        } else {
+            return new ErrorPage(idPage, ErrorTypes.NotFound);
+        }
+    }
+
     renderNewPage(idPage: string) {
         const currentPageHTML = document.querySelector(`#${App.defaultPageId}`);
 
@@ -28,25 +41,12 @@ class App {
             currentPageHTML.remove();
         }
 
-        let page: Page | null = null;
-
-        if (idPage === routes.MainPage) {
-            page = new MainPage(idPage);
-        } else if (idPage.includes(routes.CatalogPage)) {
-            page = new CatalogPage(idPage);
-        } else if (idPage === routes.CartPage) {
-            page = new CartPage(idPage);
-        } else if (idPage.includes(routes.ProductPage)) {
-            page = new ProductPage(idPage);
-        } else {
-            page = new ErrorPage(idPage, ErrorTypes.NotFound);
-        }
+        const page = this.getPage(idPage) || null;
 
         if (page) {
             const pageHTML = page.render();
             pageHTML.id = App.defaultPageId;
             this.mainWrapper.append(pageHTML);
-            // App.container.append(pageHTML);
         }
     }
 
@@ -66,7 +66,5 @@ class App {
         App.container.append(this.footer.render());
     }
 }
-
-// Main, Catalog, Cart
 
 export default App;

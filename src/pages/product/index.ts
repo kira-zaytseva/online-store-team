@@ -112,7 +112,8 @@ class ProductPage extends Page {
         productForm.appendChild(removeBtn);
         const openModal = (e: MouseEvent) => {
             e.preventDefault();
-            const isExisted = cartStore.getById(currentPet.id);
+            const isExisted = Boolean(cartStore.getById(currentPet.id));
+
             if (!isExisted) {
                 cartStore.increase(currentPet.id);
             }
@@ -133,7 +134,6 @@ class ProductPage extends Page {
     render() {
         const params = convertQuery(routes.ProductPage);
 
-        console.log(params.get('pet')); // 'data'
         this.container.append(this.createProductPage(params));
         return this.container;
     }

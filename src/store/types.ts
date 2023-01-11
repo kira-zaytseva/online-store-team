@@ -1,7 +1,7 @@
 import { data } from '../data/data';
 import { PetsInterface } from '../data/types';
-import { events } from 'enums';
 import { FilterInterface } from '../components/filter/types';
+import { STORE_UPDATED } from '../constants';
 
 export abstract class ActiveFilterStoreInterface {
     protected _activeFilters: FilterInterface;
@@ -50,7 +50,7 @@ enum storageKeys {
     ORDER = 'order',
 }
 
-const StoreEvent = new CustomEvent(events.STORE_UPDATED);
+const StoreEvent = new CustomEvent(STORE_UPDATED);
 
 export abstract class CartStoreInterface {
     protected _orderInfo: cartProductInterface[];

@@ -2,10 +2,10 @@ import { createSearch } from '../../components/search';
 import { createFilter } from '../../components/filter';
 import Page from '../../types/page';
 import { createCatalogList } from '../../components/products-list';
-import { data } from '../../data/data';
 import { convertQuery } from '../../helpers/convert-query';
 import { routes } from '../../enums';
 import { FilterInterface } from 'components/filter/types';
+import { getCurrentPets } from '../../helpers/get-current-pets';
 
 class CatalogPage extends Page {
     constructor(id: string) {
@@ -15,8 +15,6 @@ class CatalogPage extends Page {
     createCatalogPage(params: URLSearchParams) {
         const paramPet = params.get('pet') || null;
 
-        console.log(params.entries());
-
         const entries = params.entries();
         let filterData = {} as FilterInterface;
 
@@ -24,21 +22,7 @@ class CatalogPage extends Page {
             filterData = { ...filterData, [key]: value.split(',') };
         }
 
-        const currentPets = data.filter(({ pet, category, brand }) => {
-            if (filterData?.pet && !filterData.pet.includes(pet)) {
-                return false;
-            }
-
-            if (filterData?.category && !filterData.category.includes(category)) {
-                return false;
-            }
-
-            if (filterData?.brand && !filterData.brand.includes(brand)) {
-                return false;
-            }
-
-            return true;
-        });
+        const currentPets = getCurrentPets(filterData);
 
         const catalogContainer = document.createElement('div');
         catalogContainer.className = 'catalog-container';

@@ -5,7 +5,7 @@ import Page from '../../types/page';
 import CartStore from '../../store/cart';
 import { cartProductInterface } from '../../store/types';
 import { quantityStatus } from 'components/quantity/types';
-import { events } from '../../enums';
+import { STORE_UPDATED } from '../../constants';
 
 const sale = 0;
 
@@ -84,6 +84,8 @@ class CartPage extends Page {
         cartSum.appendChild(createButton({ buttonText: 'Buy now', onClick: createModal }));
         const updateCartStats = () => {
             const currentOrderProducts = CartStore.get();
+            const quantity = CartStore.getQuantity();
+
             if (!currentOrderProducts.length) {
                 cartSection.style.display = 'none';
                 cartTitle.innerText = 'Cart is Empty. Go to Catalog';
@@ -91,14 +93,14 @@ class CartPage extends Page {
             }
 
             const currentTotalPrice = currentOrderProducts.reduce((acc, rec) => acc + rec.amount * rec.price, 0);
-            cartTitle.innerText = `Cart ${CartStore.getQuantity()} items`;
+            cartTitle.innerText = `Cart ${quantity} items`;
             totalPrice.innerText = `${currentTotalPrice}$`;
-            sumProducts.innerText = `Products (${CartStore.getQuantity()})`;
+            sumProducts.innerText = `Products (${quantity})`;
             paymentAmount.innerText = `${currentTotalPrice - sale}$`;
         };
         updateCartStats();
         cartContainer.appendChild(catBg);
-        window.addEventListener(events.STORE_UPDATED, updateCartStats);
+        window.addEventListener(STORE_UPDATED, updateCartStats);
 
         return cartContainer;
     }
@@ -166,7 +168,7 @@ class CartPage extends Page {
                 }
             };
 
-            window.addEventListener(events.STORE_UPDATED, updateCartStats);
+            window.addEventListener(STORE_UPDATED, updateCartStats);
 
             itemInfo.appendChild(createQuantity({ max: stock, setValue, value: amount }));
             cartItem.appendChild(rightColumn);

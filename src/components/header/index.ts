@@ -1,6 +1,7 @@
-import { events, routes } from '../../enums';
+import { routes } from '../../enums';
 import Component from '../../types/component';
 import CartStore from '../../store/cart';
+import { STORE_UPDATED } from '../../constants';
 class Header extends Component {
     headerContainer: HTMLDivElement;
     constructor(tagName: string, className: string) {
@@ -71,7 +72,7 @@ class Header extends Component {
 
         updateCartStats();
 
-        window.addEventListener(events.STORE_UPDATED, updateCartStats);
+        window.addEventListener(STORE_UPDATED, updateCartStats);
     }
 
     render() {

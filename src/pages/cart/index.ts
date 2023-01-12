@@ -1,9 +1,9 @@
 import { createModal } from '../../components/modal';
 import { createButton } from '../../components/button';
 import { createQuantity } from '../../components/quantity/quantity';
-import Page from '../../types/page';
+import Page from '../../models/page';
 import CartStore from '../../store/cart';
-import { cartProductInterface } from '../../store/types';
+import { cartProductInterface } from '../../store/index';
 import { quantityStatus } from 'components/quantity/types';
 import { STORE_UPDATED } from '../../constants';
 

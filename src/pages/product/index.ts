@@ -1,12 +1,12 @@
-import Page from '../../types/page';
+import Page from '../../models/page';
 import { createButton } from '../../components/button';
 import { createAccordeon } from '../../components/accordeon/accordeon';
 import { data } from '../../data/data';
 import { AccordeonObject } from '../../components/accordeon/types';
 import { createBreadcrumbs } from '../../components/breadcrumbs/index';
 import ErrorPage, { ErrorTypes } from '../error';
-import { routes } from '../../enums';
-import { convertQuery } from '../../helpers/convert-query';
+import { Routes } from '../../types';
+import { convertQuery } from '../../helpers/convertQuery';
 import { createModal } from '../../components/modal';
 import CartStore from '../../store/cart';
 
@@ -67,7 +67,7 @@ class ProductPage extends Page {
                 name: currentPet.title,
                 pet: currentPet.pet,
                 category: currentPet.category,
-                page: routes.CatalogPage,
+                page: Routes.CatalogPage,
             })
         );
 
@@ -101,9 +101,9 @@ class ProductPage extends Page {
             onClick: removeFromCart,
         });
 
-        const isExisted = Boolean(cartStore.getById(currentPet.id));
+        const checkExistence = () => Boolean(cartStore.getById(currentPet.id));
 
-        if (isExisted) {
+        if (checkExistence()) {
             addBtn.style.display = 'none';
             removeBtn.style.display = 'block';
         }
@@ -112,14 +112,13 @@ class ProductPage extends Page {
         productForm.appendChild(removeBtn);
         const openModal = (e: MouseEvent) => {
             e.preventDefault();
-            const isExisted = Boolean(cartStore.getById(currentPet.id));
 
-            if (!isExisted) {
+            if (!checkExistence()) {
                 cartStore.increase(currentPet.id);
             }
 
             createModal();
-            window.location.href = `${window.location.pathname}#${routes.CartPage}`;
+            window.location.href = `${window.location.pathname}#${Routes.CartPage}`;
         };
         productForm.appendChild(createButton({ buttonText: 'Buy', onClick: openModal }));
         productSection.appendChild(faq);
@@ -132,7 +131,7 @@ class ProductPage extends Page {
     }
 
     render() {
-        const params = convertQuery(routes.ProductPage);
+        const params = convertQuery(Routes.ProductPage);
 
         this.container.append(this.createProductPage(params));
         return this.container;

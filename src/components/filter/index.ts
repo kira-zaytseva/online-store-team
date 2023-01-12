@@ -3,7 +3,7 @@ import { createCheckbox } from '../../components/checkbox';
 import { data } from '../../data/data';
 import { createButton } from '../../components/button';
 import { FilterInterface } from './types';
-import { routes } from '../../enums';
+import { Routes } from '../../types';
 import { ActiveFilterStore } from '../../store/filter';
 
 const petSet = new Set(data.map(({ pet }) => pet));
@@ -22,12 +22,15 @@ export const createFilter = (filterData: FilterInterface): HTMLFormElement => {
         e?.preventDefault();
         const currentFilterData = store.get();
         const params = new URLSearchParams();
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        Object.keys(currentFilterData).forEach((key) => params.set(key, currentFilterData[key]?.join(',')));
+        Object.keys(currentFilterData).forEach((key) => {
+            const currentFilter = currentFilterData[key as keyof FilterInterface] || null;
+            if (currentFilter) {
+                params.set(key, currentFilter.join(','));
+            }
+        });
 
         const query = params.toString();
-        window.location.href = `${window.location.pathname}#${routes.CatalogPage}?${query}`;
+        window.location.href = `${window.location.pathname}#${Routes.CatalogPage}?${query}`;
     };
 
     const removeAllFilters = () => {

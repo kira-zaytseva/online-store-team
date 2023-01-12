@@ -5,7 +5,7 @@ import CartPage from '../cart';
 import ErrorPage, { ErrorTypes } from '../error';
 import Header from '../../components/header';
 import { Footer } from '../../components/footer';
-import { routes } from '../../enums';
+import { Routes } from '../../types';
 
 class App {
     private static container: HTMLElement = document.body;
@@ -21,13 +21,13 @@ class App {
     }
 
     getPage(idPage: string) {
-        if (idPage === routes.MainPage) {
+        if (idPage === Routes.MainPage) {
             return new MainPage(idPage);
-        } else if (idPage.includes(routes.CatalogPage)) {
+        } else if (idPage.includes(Routes.CatalogPage)) {
             return new CatalogPage(idPage);
-        } else if (idPage === routes.CartPage) {
+        } else if (idPage === Routes.CartPage) {
             return new CartPage(idPage);
-        } else if (idPage.includes(routes.ProductPage)) {
+        } else if (idPage.includes(Routes.ProductPage)) {
             return new ProductPage(idPage);
         } else {
             return new ErrorPage(idPage, ErrorTypes.NotFound);

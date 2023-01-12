@@ -1,11 +1,11 @@
 import { createSearch } from '../../components/search';
 import { createFilter } from '../../components/filter';
-import Page from '../../types/page';
+import Page from '../../models/page';
 import { createCatalogList } from '../../components/products-list';
-import { convertQuery } from '../../helpers/convert-query';
-import { routes } from '../../enums';
+import { convertQuery } from '../../helpers/convertQuery';
+import { Routes } from '../../types';
 import { FilterInterface } from 'components/filter/types';
-import { getCurrentPets } from '../../helpers/get-current-pets';
+import { getCurrentPets } from '../../helpers/getCurrentPets';
 
 class CatalogPage extends Page {
     constructor(id: string) {
@@ -47,7 +47,7 @@ class CatalogPage extends Page {
     }
 
     render() {
-        const params = convertQuery(routes.CatalogPage);
+        const params = convertQuery(Routes.CatalogPage);
 
         this.container.append(this.createCatalogPage(params));
         return this.container;

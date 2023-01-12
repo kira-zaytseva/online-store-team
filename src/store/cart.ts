@@ -1,4 +1,4 @@
-import { CartStoreInterface } from './types';
+import { CartStoreInterface } from './index';
 
 class CartStore extends CartStoreInterface {
     constructor() {

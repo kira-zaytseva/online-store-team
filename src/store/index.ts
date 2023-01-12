@@ -3,6 +3,8 @@ import { PetsInterface } from '../data/types';
 import { FilterInterface } from '../components/filter/types';
 import { STORE_UPDATED } from '../constants';
 
+const ORDER = 'order';
+
 export abstract class ActiveFilterStoreInterface {
     protected _activeFilters: FilterInterface;
 
@@ -13,12 +15,8 @@ export abstract class ActiveFilterStoreInterface {
     add = (name: keyof FilterInterface, value: string) => {
         const currentData = this._activeFilters[name];
         if (currentData) {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
             this._activeFilters[name] = [...currentData, value];
         } else {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
             this._activeFilters[name] = [value];
         }
     };
@@ -26,8 +24,6 @@ export abstract class ActiveFilterStoreInterface {
     remove = (name: keyof FilterInterface, value: string) => {
         const currentData = this._activeFilters[name];
         if (currentData) {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
             const preparedData = currentData?.filter((el) => el !== value);
             if (preparedData.length) {
                 this._activeFilters[name] = preparedData;
@@ -44,10 +40,6 @@ export abstract class ActiveFilterStoreInterface {
     get = () => {
         return this._activeFilters;
     };
-}
-
-enum storageKeys {
-    ORDER = 'order',
 }
 
 const StoreEvent = new CustomEvent(STORE_UPDATED);
@@ -68,62 +60,59 @@ export abstract class CartStoreInterface {
     };
 
     getById = (productId: number) => {
-        const cuurentProduct = this.get().find(({ id }) => productId === id);
-        return cuurentProduct || null;
+        const currentProduct = this.get().find(({ id }) => productId === id);
+        return currentProduct || null;
     };
 
     set = (orders: cartProductInterface[]) => {
         this._orderInfo = orders;
     };
 
+    prepareProductCartById = (currentProducts: cartProductInterface[], id: number) => {
+        return currentProducts.map((el) => {
+            if (el.id === id) {
+                return { ...el, amount: el.amount + 1 };
+            }
+            return el;
+        });
+    };
+
     increase = (orderId: number) => {
-        let currentProducts = this.get();
+        const currentProducts = this.get();
         const currentProductCart = currentProducts.find(({ id }) => id === orderId) || null;
         const currentData = data.find(({ id }) => id === orderId) as PetsInterface;
 
-        if (currentProductCart) {
-            currentProductCart.amount = currentProductCart.amount + 1;
-            currentProducts = currentProducts.map((el) => {
-                if (el.id === orderId) {
-                    return currentProductCart;
-                }
-                return el;
-            });
-        } else {
-            currentProducts.push({ ...currentData, amount: 1 });
-        }
+        const preparedProducts = currentProductCart
+            ? this.prepareProductCartById(currentProducts, orderId)
+            : [...currentProducts, { ...currentData, amount: 1 }];
 
-        this.addToStorage(currentProducts);
+        this.addToStorage(preparedProducts);
     };
 
     decrease = (orderId: number) => {
-        let currentProducts = this.get();
-        const currentProductCart = currentProducts.find(({ id }) => id === orderId) || null;
-
-        if (currentProductCart) {
-            currentProductCart.amount = currentProductCart.amount - 1;
-            currentProducts = currentProducts.reduce((acc, rec) => {
-                if (rec.id === currentProductCart.id) {
-                    if (currentProductCart.amount <= 0) {
-                        return acc;
-                    }
-                    return [...acc, currentProductCart];
+        const currentProducts = this.get();
+        const preparedProductCart = currentProducts.reduce((acc, rec) => {
+            if (rec.id === orderId) {
+                const currentAmount = rec.amount - 1;
+                if (currentAmount <= 0) {
+                    return acc;
                 }
-                return [...acc, rec];
-            }, [] as cartProductInterface[]);
-        }
+                return [...acc, { ...rec, amount: currentAmount }];
+            }
+            return [...acc, rec];
+        }, [] as cartProductInterface[]);
 
-        this.addToStorage(currentProducts);
+        this.addToStorage(preparedProductCart);
     };
 
     addToStorage = (orders: cartProductInterface[]) => {
         this.set(orders);
-        localStorage.setItem(storageKeys.ORDER, JSON.stringify(orders));
+        localStorage.setItem(ORDER, JSON.stringify(orders));
         window.dispatchEvent(StoreEvent);
     };
 
     removeFromStorage = () => {
-        localStorage.removeItem(storageKeys.ORDER);
+        localStorage.removeItem(ORDER);
     };
 
     removeAll = () => {
@@ -131,18 +120,18 @@ export abstract class CartStoreInterface {
     };
 
     getStorage = (): cartProductInterface[] | [] => {
-        return JSON.parse(localStorage.getItem(storageKeys.ORDER) || '[]') as cartProductInterface[] | [];
+        return JSON.parse(localStorage.getItem(ORDER) || '[]') as cartProductInterface[] | [];
     };
 
     remove = (orderId: number) => {
-        let currentProducts = this.get();
+        const currentProducts = this.get();
         const currentProductCart = currentProducts.find(({ id }) => id === orderId) || null;
 
-        if (currentProductCart) {
-            currentProducts = currentProducts.filter(({ id }) => id !== orderId);
-        }
+        const updatedProducts = currentProductCart
+            ? currentProducts.filter(({ id }) => id !== orderId)
+            : currentProducts;
 
-        this.addToStorage(currentProducts);
+        this.addToStorage(updatedProducts);
     };
 }
 

@@ -1,5 +1,5 @@
 import { pets } from '../../data/data';
-import Page from '../../types/page';
+import Page from '../../models/page';
 
 export const enum ErrorTypes {
     NotFound = 404,

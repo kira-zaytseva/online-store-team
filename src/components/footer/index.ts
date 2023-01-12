@@ -1,4 +1,4 @@
-import Component from '../../types/component';
+import Component from '../../models/component';
 
 const footerData = [
     {

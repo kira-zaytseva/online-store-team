@@ -1,4 +1,4 @@
-import Page from '../../types/page';
+import Page from '../../models/page';
 import { createNavCard } from '../../components/navCard';
 import { pets } from '../../data/data';
 

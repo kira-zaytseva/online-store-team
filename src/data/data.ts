@@ -1,4 +1,4 @@
-import { routes } from '../enums';
+import { Routes } from '../types';
 import { PetsInterface } from './types';
 
 export const data: PetsInterface[] = [
@@ -905,16 +905,16 @@ export const pets = [
     {
         title: 'dogs',
         image: 'https://i.imgur.com/lp87sKW.png',
-        link: `#${routes.CatalogPage}?pet=dogs`,
+        link: `#${Routes.CatalogPage}?pet=dogs`,
     },
     {
         title: 'cats',
         image: 'https://i.imgur.com/aL0NOhH.png',
-        link: `#${routes.CatalogPage}?pet=cats`,
+        link: `#${Routes.CatalogPage}?pet=cats`,
     },
     {
         title: 'fish',
         image: 'https://i.imgur.com/AvcxmFX.png',
-        link: `#${routes.CatalogPage}?pet=fish`,
+        link: `#${Routes.CatalogPage}?pet=fish`,
     },
 ];

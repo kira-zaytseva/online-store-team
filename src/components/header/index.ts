@@ -1,5 +1,5 @@
-import { routes } from '../../enums';
-import Component from '../../types/component';
+import { Routes } from '../../types';
+import Component from '../../models/component';
 import CartStore from '../../store/cart';
 import { STORE_UPDATED } from '../../constants';
 class Header extends Component {
@@ -35,11 +35,11 @@ class Header extends Component {
         logoIcon.className = 'main-page-logo';
 
         const mainPageLogo = document.createElement('a');
-        mainPageLogo.href = `#${routes.MainPage}`;
+        mainPageLogo.href = `#${Routes.MainPage}`;
         mainPageLogo.appendChild(logoIcon);
 
         const catalogPage = document.createElement('a');
-        catalogPage.href = `#${routes.CatalogPage}`;
+        catalogPage.href = `#${Routes.CatalogPage}`;
         catalogPage.textContent = 'Catalog';
         catalogPage.className = 'catalog-link';
 
@@ -47,7 +47,7 @@ class Header extends Component {
         cartPageIcon.src = 'https://i.imgur.com/fCVCI57.png';
 
         const cartLink = document.createElement('a');
-        cartLink.href = `#${routes.CartPage}`;
+        cartLink.href = `#${Routes.CartPage}`;
         cartLink.appendChild(cartPageIcon);
         cartLink.className = 'cart-icon';
 

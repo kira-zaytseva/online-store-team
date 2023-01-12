@@ -1,13 +1,13 @@
 import { createButton } from '../../components/button';
 import { CardInterface } from './types';
-import { routes } from '../../enums';
+import { Routes } from '../../types';
 import CartStore from '../../store/cart';
 
 export const createCard = ({ title, image, price, pet, id }: CardInterface): HTMLElement => {
     const cartStore = CartStore;
 
     const changeLocation = () => {
-        window.location.href = `${window.location.pathname}#${routes.ProductPage}?pet=${pet}&id=${id}`;
+        window.location.href = `${window.location.pathname}#${Routes.ProductPage}?pet=${pet}&id=${id}`;
     };
 
     const addToCart = (e: MouseEvent) => {

@@ -1,4 +1,4 @@
-import { routes } from '../../enums';
+import { Routes } from '../../types';
 import { createButton } from '../../components/button';
 import CartStore from '../../store/cart';
 
@@ -23,7 +23,7 @@ export const createModal = () => {
             modalForm.innerHTML = '<p>Congratulations! Purchase completed</p>';
             setTimeout(() => {
                 modalWindow.remove();
-                window.location.href = `${window.location.pathname}#${routes.CatalogPage}`;
+                window.location.href = `${window.location.pathname}#${Routes.CatalogPage}`;
             }, 5000);
             CartStore.removeAll();
         }

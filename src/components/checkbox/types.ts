@@ -1,4 +1,4 @@
-import { ActiveFilterStoreInterface } from '../../store/types';
+import { ActiveFilterStoreInterface } from '../../store/index';
 import { FilterInterface } from '../filter/types';
 
 export interface CheckboxInterface {

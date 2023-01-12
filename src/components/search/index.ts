@@ -1,0 +1,20 @@
+export const createSearch = (): HTMLFormElement => {
+    const search = document.createElement('form');
+    search.className = 'search-form';
+    const searchInput = document.createElement('input');
+    searchInput.className = 'search-input';
+    searchInput.type = 'text';
+    searchInput.id = 'text-to-find';
+    searchInput.placeholder = 'Search';
+    searchInput.setAttribute('autofocus', '');
+    const searchCancel = document.createElement('div');
+    searchCancel.className = 'search-cancel';
+    const searchBtn = document.createElement('input');
+    searchBtn.className = 'search-button';
+    searchBtn.value = '';
+    searchBtn.type = 'submit';
+    search.appendChild(searchInput);
+    search.appendChild(searchCancel);
+    search.appendChild(searchBtn);
+    return search;
+};

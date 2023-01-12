@@ -1,0 +1,26 @@
+.nav-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    width: 300px;
+    height: 300px;
+    padding: 20px;
+    background-color: var(--element-background);
+    border-radius: 30px;
+}
+
+.nav-card:hover {
+    background-color: var(--element-hover);
+}
+
+.nav-card-title {
+    font-size: 32px;
+    text-transform: uppercase;
+}
+
+.nav-card-img {
+    width: 150px;
+    height: 150px;
+}

@@ -7,6 +7,16 @@ import { Routes } from '../../types';
 import { FilterInterface } from 'components/filter/types';
 import { getCurrentPets } from '../../helpers/getCurrentPets';
 
+const prepareFilterData = (entries: IterableIterator<[string, string]>) => {
+    let filterData = {} as FilterInterface;
+
+    for (const [key, value] of entries) {
+        filterData = { ...filterData, [key]: value.split(',') };
+    }
+
+    return filterData;
+};
+
 class CatalogPage extends Page {
     constructor(id: string) {
         super(id);
@@ -16,11 +26,8 @@ class CatalogPage extends Page {
         const paramPet = params.get('pet') || null;
 
         const entries = params.entries();
-        let filterData = {} as FilterInterface;
 
-        for (const [key, value] of entries) {
-            filterData = { ...filterData, [key]: value.split(',') };
-        }
+        const filterData = prepareFilterData(entries);
 
         const currentPets = getCurrentPets(filterData);
 

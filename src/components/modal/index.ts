@@ -287,7 +287,7 @@ export const createModal = () => {
     document.body.appendChild(modalWindow);
 };
 
-function validateName(name: string) {
+export function validateName(name: string) {
     const regex = /^(?:\b\w{3,}\b\s*){2,}$/gm;
     return regex.test(name);
 }
@@ -297,7 +297,7 @@ export function validatePhone(number: string) {
     return regex.test(number);
 }
 
-function validateAddress(address: string) {
+export function validateAddress(address: string) {
     const regex = /^(?:\b\w{5,}\b\s*){3,}$/gm;
     return regex.test(address);
 }
@@ -312,7 +312,7 @@ export function validateCardNumber(number: string) {
     return regex.test(number);
 }
 
-function validateExpiration(date: string) {
+export function validateExpiration(date: string) {
     const validDate = date
         .split('')
         .filter((el) => el !== '/')

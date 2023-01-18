@@ -71,7 +71,7 @@ describe('prepareProductCartById', () => {
             ],
             5
         );
-        expect(result).toEqual([
+        expect(result).toStrictEqual([
             {
                 amount: 2,
                 id: 5,

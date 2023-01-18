@@ -285,20 +285,19 @@ export const createModal = () => {
     modalForm.appendChild(catOnBtn);
     modalForm.appendChild(pyamentBtn);
     document.body.appendChild(modalWindow);
-    // return modalWindow;
 };
 
-function validateName(name: string) {
+export function validateName(name: string) {
     const regex = /^(?:\b\w{3,}\b\s*){2,}$/gm;
     return regex.test(name);
 }
 
-function validatePhone(number: string) {
+export function validatePhone(number: string) {
     const regex = /^\+\d{9,}$/gm;
     return regex.test(number);
 }
 
-function validateAddress(address: string) {
+export function validateAddress(address: string) {
     const regex = /^(?:\b\w{5,}\b\s*){3,}$/gm;
     return regex.test(address);
 }
@@ -308,12 +307,12 @@ function validateEmail(email: string) {
     return regex.test(email);
 }
 
-function validateCardNumber(number: string) {
+export function validateCardNumber(number: string) {
     const regex = /^\d{16}$/gm;
     return regex.test(number);
 }
 
-function validateExpiration(date: string) {
+export function validateExpiration(date: string) {
     const validDate = date
         .split('')
         .filter((el) => el !== '/')
@@ -322,7 +321,7 @@ function validateExpiration(date: string) {
     return regex.test(validDate);
 }
 
-function validateCvc(number: string) {
+export function validateCvc(number: string) {
     const regex = /^\d{3}$/gm;
     return regex.test(number);
 }

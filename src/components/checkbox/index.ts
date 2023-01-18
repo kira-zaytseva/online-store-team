@@ -24,7 +24,6 @@ export const createCheckbox = ({ title, checkboxId, checkboxSet, store }: Checkb
             } else {
                 store.remove(checkboxId, item.value);
             }
-            // store.add(checkboxId, );
         };
         checkboxLabel.id = `${checkboxId}${index}`;
         const checkboxInput = document.createElement('input');

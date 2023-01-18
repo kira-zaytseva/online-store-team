@@ -6,7 +6,7 @@ describe('getCurrentPets', () => {
         const filterData = { pet: ['dogs'], category: ['Food'], brand: ['Purina'] };
         const result = getCurrentPets(filterData);
 
-        expect(result).toEqual([
+        expect(result).toStrictEqual([
             {
                 id: 5,
                 title: 'Complete Essentials Chicken & Rice Entree',
@@ -72,11 +72,11 @@ describe('getCurrentPets', () => {
     });
     it('should return all products when no filter is provided', () => {
         const result = getCurrentPets({});
-        expect(result).toEqual(data);
+        expect(result).toStrictEqual(data);
     });
     it('should return an empty array when no products match the filter', () => {
         const filterData = { pet: ['cat'], category: ['toy'], brand: ['Purina'] };
         const result = getCurrentPets(filterData);
-        expect(result).toEqual([]);
+        expect(result).toStrictEqual([]);
     });
 });
